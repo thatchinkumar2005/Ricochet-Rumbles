@@ -1,8 +1,11 @@
 import addHandlePieceSelect from "../events/addHandlePieceSelect.js";
 import handlePieceSelect from "../events/handlePieceSelect.js";
 
-export default function placePieces(players, currentPlayer) {
-  const piecesLocations = new Object();
+export default function placePieces(players) {
+  const piecesLocations = {
+    player1: {},
+    player2: {},
+  };
   function getCoordinates(initial_row, final_row) {
     const locations = [];
 
@@ -30,8 +33,12 @@ export default function placePieces(players, currentPlayer) {
     piece.type = player1Pieces[i];
     piece.classList.add("piece", "player1", player1Pieces[i]);
     piece.player = 1;
-    console.log(piece.classList);
     cell.appendChild(piece);
+    Object.defineProperty(piecesLocations.player1, player1Pieces[i], {
+      value: player1Locations[i],
+      enumerable: true,
+      writable: true,
+    });
   }
 
   const player2Pieces = players[1].pieces;
@@ -44,7 +51,15 @@ export default function placePieces(players, currentPlayer) {
     piece.type = player1Pieces[i];
     piece.player = 2;
     piece.classList.add("piece", "player2", player2Pieces[i]);
-    console.log(piece.classList);
     cell.appendChild(piece);
+    Object.defineProperty(piecesLocations.player2, player2Pieces[i], {
+      value: player2Locations[i],
+      enumerable: true,
+      writable: true,
+    });
   }
+  const gameHistory = [];
+  gameHistory.push(piecesLocations);
+  console.log(gameHistory);
+  localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
 }

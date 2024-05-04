@@ -1,7 +1,8 @@
 import gameInit from "./gameInit.js";
 import placeCells from "./render/placeCells.js";
 import placePieces from "./render/placePieces.js";
-let initialPlayer = 2;
+
+let initialPlayer = 1;
 let gameOver = false;
 const players = [
   {

@@ -1,5 +1,5 @@
 import handleMovePiece from "./handleMovePiece.js";
-import handleRotate from "./handleRotateLeft.js";
+import handleRotate from "./handleRotate.js";
 
 export default function handlePieceSelect(pieceElement, gameOver) {
   const validDest = [];

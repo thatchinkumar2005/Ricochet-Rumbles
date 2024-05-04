@@ -10,7 +10,6 @@ export default function addHandlePieceSelect(player, gameOver) {
       handlePieceSelect(e.srcElement, gameOver);
     };
     p.classList.add("turn");
-    console.log(p.classList);
   });
   otherPieces.forEach((p) => {
     p.onclick = null;
