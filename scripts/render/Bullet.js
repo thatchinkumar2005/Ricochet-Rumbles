@@ -10,15 +10,19 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
   switch (dir) {
     case 0:
       bullet.classList.add("bullet_top");
+      bullet.dir_ = 0;
       break;
     case 1:
       console.log("no orientation change");
+      bullet.dir_ = 1;
       break;
     case 2:
       bullet.classList.add("bullet_right");
+      bullet.dir_ = 2;
       break;
     case 3:
       bullet.classList.add("bullet_left");
+      bullet.dir_ = 3;
       break;
   }
 
@@ -45,8 +49,10 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
   initialCell.appendChild(bullet);
 
   let currentLocation = initialLocation;
+  let outOfBound = currentLocation[path] > 7 || currentLocation[path] < 0;
+  let ricochet = false;
 
-  while (!gameOver && !absorbed) {
+  while (!gameOver && !absorbed && !outOfBound && !ricochet) {
     await sleep(250);
     // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
     if (pathAction === "add") {
@@ -66,17 +72,14 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
       let data = handleCollision(newCell.firstChild);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
+      ricochet = data.ricochet;
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
       await sleep(250);
       console.log(true);
       const bullet = document.querySelector(".bullet");
-      if (bullet) newCell.removeChild(bullet);
+      if (bullet) bullet.remove();
     }
     await sleep(125);
-  }
-
-  if (gameOver) {
-    alert("GameOver");
   }
 }
