@@ -115,3 +115,20 @@ body {
     background-color: rgba(64, 197, 255, 0.8);
   }
 }
+
+.bullet {
+  background-image: url("/Ricochet_Rumbles/Assets/Bullet.png");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.bullet_top {
+  transform: rotateZ(108deg);
+}
+.bullet_left {
+  transform: rotateZ(90deg);
+}
+.bullet_right {
+  transform: rotateZ(-90deg);
+}

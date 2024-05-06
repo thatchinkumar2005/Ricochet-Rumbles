@@ -1,3 +1,4 @@
+import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePieceSelect from "./handlePieceSelect.js";
 
@@ -10,7 +11,6 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
   const prevRound = gameHistory[turn - 1];
 
   if (turn % 2 === 0) {
-    console.log("player2");
     const player2 = { ...prevRound.player2 };
     player2[piece.type] = [
       Number(newCell.getAttribute("data-row")),
@@ -19,7 +19,6 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
     const round = { player1: prevRound.player1, player2 };
     gameHistory.push(round);
   } else {
-    console.log("player1");
     const player1 = { ...prevRound.player1 };
     player1[piece.type] = [
       Number(newCell.getAttribute("data-row")),
@@ -43,6 +42,14 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
   prevDest.forEach((dest) => {
     dest.classList.remove("validDest");
   });
-  newCell.firstElementChild.addEventListener("click", handlePieceSelect);
   if (!gameOver) addHandlePieceSelect(player === "player1" ? 2 : 1); //recursive call
+
+  //Bullet mech
+  const Cannon = document.querySelector(`.piece.Cannon.player${player}`);
+  const Cannon_Cell = Cannon.parentElement;
+  let cannonLocation = [
+    Number(Cannon_Cell.getAttribute("data-row")),
+    Number(Cannon_Cell.getAttribute("data-col")),
+  ];
+  moveBullet(gameOver, piece.player);
 }
