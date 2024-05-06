@@ -1,6 +1,5 @@
 import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
-import handlePieceSelect from "./handlePieceSelect.js";
 
 export default function handleMovePiece(piece, newCell, player, gameOver) {
   //history
@@ -45,11 +44,14 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
   if (!gameOver) addHandlePieceSelect(player === "player1" ? 2 : 1); //recursive call
 
   //Bullet mech
-  const Cannon = document.querySelector(`.piece.Cannon.player${player}`);
+  const Cannon = document.querySelector(`.piece.Cannon.player${piece.player}`);
   const Cannon_Cell = Cannon.parentElement;
   let cannonLocation = [
     Number(Cannon_Cell.getAttribute("data-row")),
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
-  moveBullet(gameOver, piece.player);
+
+  const dir = player === "player1" ? 0 : 1;
+
+  moveBullet(gameOver, dir, cannonLocation);
 }

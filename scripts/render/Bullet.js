@@ -10,24 +10,33 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
   switch (dir) {
     case 0:
       bullet.classList.add("bullet_top");
+      break;
     case 1:
       console.log("no orientation change");
+      break;
     case 2:
       bullet.classList.add("bullet_right");
+      break;
     case 3:
       bullet.classList.add("bullet_left");
+      break;
   }
 
   const path = dir === 0 || dir === 1 ? 0 : 1; //path : either row(0) or column(1)
   const pathAction = dir % 2 === 0 ? "add" : "sub";
+  console.log(srcLocation);
 
   const initialLocation = [];
   if (pathAction === "add") {
-    initialLocation[path] = srcLocation[path]++;
+    console.log("happened");
+    initialLocation[path] = srcLocation[path] + 1;
+    initialLocation[path === 0 ? 1 : 0] = srcLocation[path === 0 ? 1 : 0];
   }
   if (pathAction === "sub") {
-    initialLocation[path] = srcLocation[path]--;
+    initialLocation[path] = srcLocation[path] - 1;
+    initialLocation[path === 0 ? 1 : 0] = srcLocation[path === 0 ? 1 : 0];
   }
+  console.log(initialLocation);
 
   const initialCell = document.querySelector(
     `[data-row='${initialLocation[0]}'][data-col='${initialLocation[1]}']`
@@ -37,32 +46,37 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
 
   let currentLocation = initialLocation;
 
-  // while (!gameOver && !absorbed) {
-  //   await sleep(250);
-  //   player === 1 ? currentLocation[0]++ : currentLocation[0]--;
-  //   if (currentLocation[0] > 7 || currentLocation[0] < 0) {
-  //     break;
-  //   }
-  //   const newCell = document.querySelector(
-  //     `[data-row='${currentLocation[0]}'][data-col='${currentLocation[1]}']`
-  //   );
+  while (!gameOver && !absorbed) {
+    await sleep(250);
+    // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
+    if (pathAction === "add") {
+      currentLocation[path]++;
+    } else if (pathAction === "sub") {
+      currentLocation[path]--;
+    }
+    if (currentLocation[path] > 7 || currentLocation[path] < 0) {
+      break;
+    }
+    const newCell = document.querySelector(
+      `[data-row='${currentLocation[0]}'][data-col='${currentLocation[1]}']`
+    );
 
-  //   newCell.appendChild(bullet);
-  //   if (newCell.firstElementChild?.classList.contains("piece")) {
-  //     let data = handleCollision(newCell.firstChild);
-  //     gameOver = data.gameOver;
-  //     absorbed = data.absorbed;
-  //   }
-  //   if (currentLocation[0] == 7 || currentLocation[0] == 0) {
-  //     await sleep(250);
-  //     console.log(true);
-  //     const bullet = document.querySelector(".bullet");
-  //     newCell.removeChild(bullet);
-  //   }
-  //   await sleep(125);
-  // }
+    newCell.appendChild(bullet);
+    if (newCell.firstElementChild?.classList.contains("piece")) {
+      let data = handleCollision(newCell.firstChild);
+      gameOver = data.gameOver;
+      absorbed = data.absorbed;
+    }
+    if (currentLocation[path] == 7 || currentLocation[path] == 0) {
+      await sleep(250);
+      console.log(true);
+      const bullet = document.querySelector(".bullet");
+      if (bullet) newCell.removeChild(bullet);
+    }
+    await sleep(125);
+  }
 
-  // if (gameOver) {
-  //   alert("GameOver");
-  // }
+  if (gameOver) {
+    alert("GameOver");
+  }
 }

@@ -1,3 +1,4 @@
+import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
 import addHandlePieceSelect from "../events/addHandlePieceSelect.js";
 import handlePieceSelect from "../events/handlePieceSelect.js";
 
@@ -33,6 +34,11 @@ export default function placePieces(players) {
     piece.type = player1Pieces[i];
     piece.classList.add("piece", "player1", player1Pieces[i]);
     piece.player = 1;
+    if (piece.type === "Ricochet") {
+      piece.orientation = Ricochet.type1;
+    } else if (piece.type === "SemiRicochet") {
+      piece.orientation = SemiRicochet.type1;
+    }
     cell.appendChild(piece);
     Object.defineProperty(piecesLocations.player1, player1Pieces[i], {
       value: player1Locations[i],
@@ -48,8 +54,13 @@ export default function placePieces(players) {
       `[data-row='${player2Locations[i][0]}'][data-col='${player2Locations[i][1]}']`
     );
     const piece = document.createElement("div");
-    piece.type = player1Pieces[i];
+    piece.type = player2Pieces[i];
     piece.player = 2;
+    if (piece.type === "Ricochet") {
+      piece.orientation = Ricochet.type1;
+    } else if (piece.type === "SemiRicochet") {
+      piece.orientation = SemiRicochet.type1;
+    }
     piece.classList.add("piece", "player2", player2Pieces[i]);
     cell.appendChild(piece);
     Object.defineProperty(piecesLocations.player2, player2Pieces[i], {
