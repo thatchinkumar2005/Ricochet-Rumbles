@@ -1,7 +1,7 @@
 import handleMovePiece from "./handleMovePiece.js";
 import handleRotate from "./handleRotate.js";
 
-export default function handlePieceSelect(pieceElement, gameOver) {
+export default function handlePieceSelect(pieceElement) {
   const validDest = [];
   const cell = pieceElement?.parentElement;
   const row = Number(cell.getAttribute("data-row"));
@@ -39,7 +39,7 @@ export default function handlePieceSelect(pieceElement, gameOver) {
     //Right Rotate btn
     const RotateRightButton = document.createElement("div");
     RotateRightButton.onclick = (e) => {
-      handleRotate(pieceElement, "right", gameOver);
+      handleRotate(pieceElement, "right");
       RotateRightButton.onclick = null;
       RotateLeftButton.onclick = null;
     };
@@ -93,8 +93,7 @@ export default function handlePieceSelect(pieceElement, gameOver) {
             handleMovePiece(
               pieceElement,
               e.srcElement,
-              pieceElement.classList[1],
-              gameOver
+              pieceElement.classList[1]
             );
             console.log(dests);
             const turnCard = document.querySelector(".turnCard");

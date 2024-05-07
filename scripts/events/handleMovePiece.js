@@ -1,7 +1,7 @@
 import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 
-export default function handleMovePiece(piece, newCell, player, gameOver) {
+export default async function handleMovePiece(piece, newCell, player) {
   //history
   //if i is the turn, then ith index in gamehistory represents board pieces position after ith turn player moves. i is even => player 2, i is odd => player 1
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
@@ -41,7 +41,6 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
   prevDest.forEach((dest) => {
     dest.classList.remove("validDest");
   });
-  if (!gameOver) addHandlePieceSelect(player === "player1" ? 2 : 1); //recursive call
 
   //Bullet mech
   const Cannon = document.querySelector(`.piece.Cannon.player${piece.player}`);
@@ -53,5 +52,7 @@ export default function handleMovePiece(piece, newCell, player, gameOver) {
 
   const dir = player === "player1" ? 0 : 1;
 
-  moveBullet(gameOver, dir, cannonLocation);
+  let gameOver = await moveBullet(dir, cannonLocation);
+  console.log(gameOver);
+  addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
 }

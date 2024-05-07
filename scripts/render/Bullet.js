@@ -1,10 +1,13 @@
 import handleCollision from "./handleCollision.js";
 
-export default async function moveBullet(gameOver, dir, srcLocation) {
+export default async function moveBullet(dir, srcLocation) {
+  let ricochet = false;
+  let absorbed = false;
+  let gameOver = false;
+
   const sleep = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time));
   };
-  let absorbed = false;
   const bullet = document.createElement("div");
   bullet.classList.add("bullet");
   switch (dir) {
@@ -47,10 +50,20 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
   );
   console.log(initialCell);
   initialCell.appendChild(bullet);
+  if (initialCell.firstElementChild?.classList.contains("piece")) {
+    let data = await handleCollision(initialCell.firstChild);
+    gameOver = data.gameOver;
+    absorbed = data.absorbed;
+    ricochet = data.ricochet;
+  }
 
   let currentLocation = initialLocation;
   let outOfBound = currentLocation[path] > 7 || currentLocation[path] < 0;
-  let ricochet = false;
+  if (currentLocation[path] == 7 || currentLocation[path] == 0) {
+    await sleep(250);
+    const bullet = document.querySelector(".bullet");
+    if (bullet) bullet.remove();
+  }
 
   while (!gameOver && !absorbed && !outOfBound && !ricochet) {
     await sleep(250);
@@ -69,7 +82,7 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
 
     newCell.appendChild(bullet);
     if (newCell.firstElementChild?.classList.contains("piece")) {
-      let data = handleCollision(newCell.firstChild);
+      let data = await handleCollision(newCell.firstChild);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
@@ -82,4 +95,12 @@ export default async function moveBullet(gameOver, dir, srcLocation) {
     }
     await sleep(125);
   }
+  // if (gameOver) {
+  //   alert("GameOver");
+  //   const pieces = document.querySelectorAll(".piece");
+  //   pieces.forEach((piece) => {
+  //     piece.onclick = null;
+  //   });
+  // }
+  return gameOver;
 }

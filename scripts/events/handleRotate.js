@@ -1,7 +1,7 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 
-export default function handleRotate(piece, dir, gameOver) {
+export default function handleRotate(piece, dir) {
   if (!piece.style.transform) {
     if (dir === "left") {
       piece.style.transform = "rotate(-90deg)";

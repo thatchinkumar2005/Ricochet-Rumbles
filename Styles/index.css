@@ -132,3 +132,17 @@ body {
 .bullet_right {
   transform: rotateZ(90deg);
 }
+
+.restart {
+  margin-top: 10px;
+  background-color: beige;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  transition: all 250ms;
+  &:hover {
+    background: transparent;
+    color: white;
+    border: beige solid 1px;
+  }
+}

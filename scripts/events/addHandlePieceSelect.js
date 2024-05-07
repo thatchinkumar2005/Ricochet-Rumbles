@@ -5,14 +5,29 @@ export default function addHandlePieceSelect(player, gameOver) {
   const otherPieces = document.querySelectorAll(
     `.piece.player${player === 1 ? 2 : 1}`
   );
-  playerPieces.forEach((p) => {
-    p.onclick = (e) => {
-      handlePieceSelect(e.srcElement, gameOver);
+  const pieces = document.querySelectorAll(".piece");
+  if (!gameOver) {
+    playerPieces.forEach((p) => {
+      p.onclick = (e) => {
+        handlePieceSelect(e.srcElement, gameOver);
+      };
+      p.classList.add("turn");
+    });
+    otherPieces.forEach((p) => {
+      p.onclick = null;
+      p.classList.remove("turn");
+    });
+  } else {
+    alert("GameOver");
+    pieces.forEach((p) => {
+      p.onclick = null;
+      p.classList.remove("turn");
+    });
+    const restart = document.querySelector("#restart");
+    restart.innerHTML = "Restart";
+    restart.classList.add("restart");
+    restart.onclick = () => {
+      document.location.reload();
     };
-    p.classList.add("turn");
-  });
-  otherPieces.forEach((p) => {
-    p.onclick = null;
-    p.classList.remove("turn");
-  });
+  }
 }

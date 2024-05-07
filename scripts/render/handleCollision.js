@@ -1,6 +1,6 @@
 import moveBullet from "./Bullet.js";
 
-export default function handleCollision(piece) {
+export default async function handleCollision(piece) {
   let gameOver = false,
     absorbed = false,
     ricochet = false;
@@ -50,7 +50,7 @@ export default function handleCollision(piece) {
         case 3:
           dir = orientation[1];
       }
-      moveBullet(gameOver, dir, srcLocation);
+      gameOver = await moveBullet(dir, srcLocation); //recursive call
     } else if (type === "SemiRicochet") {
       ricochet = true;
       const bullet = document.querySelector(".bullet");
@@ -82,8 +82,8 @@ export default function handleCollision(piece) {
           return { gameOver, absorbed, ricochet };
       }
 
-      moveBullet(gameOver, dir, srcLocation);
+      gameOver = await moveBullet(dir, srcLocation); //recursive call
     }
-    return { gameOver, absorbed, ricochet };
   }
+  return { gameOver, absorbed, ricochet };
 }
