@@ -27,7 +27,7 @@ export default function handlePieceSelect(pieceElement) {
     //left Rotate btn
     const RotateLeftButton = document.createElement("div");
     RotateLeftButton.onclick = (e) => {
-      handleRotate(pieceElement, "left", gameOver);
+      handleRotate(pieceElement, "left");
       RotateLeftButton.onclick = null;
       RotateRightButton.onclick = null;
     };

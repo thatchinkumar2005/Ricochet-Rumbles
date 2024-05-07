@@ -62,7 +62,7 @@ export default function handleRotate(piece, dir) {
   console.log("after");
   console.log(piece.orientation);
 
-  if (!gameOver) addHandlePieceSelect(piece.player === 1 ? 2 : 1);
+  addHandlePieceSelect(piece.player === 1 ? 2 : 1);
   console.log(piece.classList);
   const dests = document.querySelectorAll(".validDest");
   dests.forEach((c) => (c.onclick = null));

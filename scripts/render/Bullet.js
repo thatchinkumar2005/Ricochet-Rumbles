@@ -1,6 +1,6 @@
 import handleCollision from "./handleCollision.js";
 
-export default async function moveBullet(dir, srcLocation) {
+export default async function moveBullet(dir, srcLocation, player) {
   let ricochet = false;
   let absorbed = false;
   let gameOver = false;
@@ -9,6 +9,7 @@ export default async function moveBullet(dir, srcLocation) {
     return new Promise((resolve) => setTimeout(resolve, time));
   };
   const bullet = document.createElement("div");
+  bullet.player = player;
   bullet.classList.add("bullet");
   switch (dir) {
     case 0:
@@ -49,12 +50,14 @@ export default async function moveBullet(dir, srcLocation) {
     `[data-row='${initialLocation[0]}'][data-col='${initialLocation[1]}']`
   );
   console.log(initialCell);
-  initialCell.appendChild(bullet);
-  if (initialCell.firstElementChild?.classList.contains("piece")) {
-    let data = await handleCollision(initialCell.firstChild);
-    gameOver = data.gameOver;
-    absorbed = data.absorbed;
-    ricochet = data.ricochet;
+  if (initialCell) {
+    initialCell.appendChild(bullet);
+    if (initialCell.firstElementChild?.classList.contains("piece")) {
+      let data = await handleCollision(initialCell.firstChild);
+      gameOver = data.gameOver;
+      absorbed = data.absorbed;
+      ricochet = data.ricochet;
+    }
   }
 
   let currentLocation = initialLocation;
@@ -79,7 +82,6 @@ export default async function moveBullet(dir, srcLocation) {
     const newCell = document.querySelector(
       `[data-row='${currentLocation[0]}'][data-col='${currentLocation[1]}']`
     );
-
     newCell.appendChild(bullet);
     if (newCell.firstElementChild?.classList.contains("piece")) {
       let data = await handleCollision(newCell.firstChild);

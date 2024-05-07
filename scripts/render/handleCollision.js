@@ -14,12 +14,13 @@ export default async function handleCollision(piece) {
     console.log("Absorbed");
     const bullet = document.querySelector(".bullet");
     bullet.remove();
+    return { gameOver, absorbed, ricochet };
   } else if (type === "Titan") {
-    gameOver = true;
-    console.log("GameOVer");
-    const cell = piece.parentElement;
     const bullet = document.querySelector(".bullet");
-    cell.removeChild(bullet);
+    gameOver = bullet.player !== piece.player;
+    console.log(gameOver);
+    bullet.remove();
+    return { gameOver, absorbed, ricochet };
   } else {
     if (type === "Ricochet") {
       ricochet = true;

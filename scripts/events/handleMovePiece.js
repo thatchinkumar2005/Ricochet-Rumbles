@@ -35,7 +35,7 @@ export default async function handleMovePiece(piece, newCell, player) {
   const controlls = document.querySelector("#controlls");
   controlls.innerHTML = "";
 
-  prevCell.innerHTML = "";
+  piece.remove();
   newCell.appendChild(piece);
   const prevDest = document.querySelectorAll(".validDest");
   prevDest.forEach((dest) => {
@@ -52,7 +52,7 @@ export default async function handleMovePiece(piece, newCell, player) {
 
   const dir = player === "player1" ? 0 : 1;
 
-  let gameOver = await moveBullet(dir, cannonLocation);
+  let gameOver = await moveBullet(dir, cannonLocation, piece.player);
   console.log(gameOver);
   addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
 }
