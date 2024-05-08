@@ -52,7 +52,7 @@ export default function handlePieceSelect(pieceElement) {
   //finding the valid dest cells for a the piece
   for (let i = -1; i < 2; i++) {
     for (let j = -1; j < 2; j++) {
-      const target_row = row + i;
+      const target_row = pieceElement.type === "Cannon" ? row : row + i; //cannon in base position only!
       const target_col = col + j;
       if (
         target_row > 7 ||

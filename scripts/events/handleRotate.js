@@ -1,7 +1,9 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
+import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 
-export default function handleRotate(piece, dir) {
+export default async function handleRotate(piece, dir) {
+  let gameOver = false;
   if (!piece.style.transform) {
     if (dir === "left") {
       piece.style.transform = "rotate(-90deg)";
@@ -59,14 +61,26 @@ export default function handleRotate(piece, dir) {
     }
   }
 
-  console.log("after");
-  console.log(piece.orientation);
-
-  addHandlePieceSelect(piece.player === 1 ? 2 : 1);
-  console.log(piece.classList);
+  //Remove highlights
   const dests = document.querySelectorAll(".validDest");
   dests.forEach((c) => (c.onclick = null));
   dests.forEach((dest) => {
     dest.classList.remove("validDest");
   });
+
+  //remove controlls
+  const controll = document.querySelector("#controlls");
+  controll.innerHTML = "";
+
+  //Bullet mech
+
+  const Cannon = document.querySelector(`.piece.Cannon.player${piece.player}`);
+  const Cannon_Cell = Cannon.parentElement;
+  let cannonLocation = [
+    Number(Cannon_Cell.getAttribute("data-row")),
+    Number(Cannon_Cell.getAttribute("data-col")),
+  ];
+  const bulletDir = piece.player === 1 ? 0 : 1;
+  gameOver = await moveBullet(bulletDir, cannonLocation, piece.player);
+  addHandlePieceSelect(piece.player === 1 ? 2 : 1, gameOver);
 }

@@ -1,19 +1,21 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
-import addHandlePieceSelect from "../events/addHandlePieceSelect.js";
-import handlePieceSelect from "../events/handlePieceSelect.js";
 
 export default function placePieces(players) {
+  //for gameHistory
   const piecesLocations = {
     player1: {},
     player2: {},
   };
-  function getCoordinates(initial_row, final_row) {
+  function getCoordinates(initial_row, final_row, player) {
     const locations = [];
 
     while (locations.length < 5) {
-      const row = Math.floor(
+      let row = Math.floor(
         Math.random() * (final_row - initial_row) + initial_row
       );
+      if (locations.length === 4) {
+        row = player === 1 ? initial_row : final_row;
+      }
       const col = Math.floor(Math.random() * 8);
       const location = [row, col];
       const location_string = locations.map((location) => String(location));
@@ -24,8 +26,9 @@ export default function placePieces(players) {
     return locations;
   }
 
+  //player 1
   const player1Pieces = players[0].pieces;
-  const player1Locations = getCoordinates(0, 3);
+  const player1Locations = getCoordinates(0, 3, 1);
   for (let i = 0; i < 5; i++) {
     const cell = document.querySelector(
       `[data-row='${player1Locations[i][0]}'][data-col='${player1Locations[i][1]}']`
@@ -46,9 +49,9 @@ export default function placePieces(players) {
       writable: true,
     });
   }
-
+  //player 2
   const player2Pieces = players[1].pieces;
-  const player2Locations = getCoordinates(5, 7);
+  const player2Locations = getCoordinates(5, 7, 2);
   for (let i = 0; i < 5; i++) {
     const cell = document.querySelector(
       `[data-row='${player2Locations[i][0]}'][data-col='${player2Locations[i][1]}']`

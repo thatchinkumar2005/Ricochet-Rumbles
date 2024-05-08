@@ -5,6 +5,11 @@ export default async function moveBullet(dir, srcLocation, player) {
   let absorbed = false;
   let gameOver = false;
 
+  const playerPieces = document.querySelectorAll(`.piece.player${player}`);
+  playerPieces.forEach((p) => {
+    p.onclick = null;
+    p.classList.remove("turn");
+  });
   const sleep = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time));
   };
