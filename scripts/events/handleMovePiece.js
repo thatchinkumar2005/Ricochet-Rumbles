@@ -51,7 +51,7 @@ export default async function handleMovePiece(piece, newCell, player) {
   ];
 
   const prevInterval = localStorage.getItem("interval"); //getting the previous timer interval
-  clearInterval(prevInterval); //removing previous timer interval
+  clearInterval(Number(prevInterval)); //removing previous timer interval
 
   const dir = player === "player1" ? 0 : 1;
   let gameOver = await moveBullet(dir, cannonLocation, piece.player);

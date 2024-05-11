@@ -80,6 +80,10 @@ export default async function handleRotate(piece, dir) {
     Number(Cannon_Cell.getAttribute("data-row")),
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
+
+  const prevInterval = localStorage.getItem("interval"); //getting the previous timer interval
+  clearInterval(Number(prevInterval)); //removing previous timer interval
+
   const bulletDir = piece.player === 1 ? 0 : 1;
   gameOver = await moveBullet(bulletDir, cannonLocation, piece.player);
   addHandlePieceSelect(piece.player === 1 ? 2 : 1, gameOver);
