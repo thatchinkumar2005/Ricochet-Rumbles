@@ -96,10 +96,6 @@ export default function handlePieceSelect(pieceElement) {
               pieceElement.classList[1]
             );
             console.log(dests);
-            const turnCard = document.querySelector(".turnCard");
-            turnCard.innerHTML = `Player ${
-              pieceElement.player === 1 ? 2 : 1
-            }'s turn`;
           };
         }
       }

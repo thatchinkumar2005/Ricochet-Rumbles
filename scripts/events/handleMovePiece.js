@@ -50,9 +50,12 @@ export default async function handleMovePiece(piece, newCell, player) {
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
 
-  const dir = player === "player1" ? 0 : 1;
+  const prevInterval = localStorage.getItem("interval"); //getting the previous timer interval
+  clearInterval(prevInterval); //removing previous timer interval
 
+  const dir = player === "player1" ? 0 : 1;
   let gameOver = await moveBullet(dir, cannonLocation, piece.player);
   console.log(gameOver);
+
   addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
 }
