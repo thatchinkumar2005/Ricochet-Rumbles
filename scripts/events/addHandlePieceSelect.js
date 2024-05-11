@@ -1,7 +1,7 @@
 import { settings } from "../Globals/settings.js";
 import handlePieceSelect from "./handlePieceSelect.js";
 
-export default function addHandlePieceSelect(player, gameOver) {
+export default function addHandlePieceSelect(player, gameOver, timeUp = false) {
   const playerPieces = document.querySelectorAll(`.piece.player${player}`);
   const otherPieces = document.querySelectorAll(
     `.piece.player${player === 1 ? 2 : 1}`
@@ -18,8 +18,10 @@ export default function addHandlePieceSelect(player, gameOver) {
       time = time - 1000;
       timer.innerHTML = new Date(time).toISOString().slice(11, 19);
       if (time <= 0) {
+        timeUp = true;
+        console.log(timeUp);
         clearInterval(interval);
-        addHandlePieceSelect(player === 1 ? 2 : 1, true);
+        addHandlePieceSelect(player === 1 ? 2 : 1, true, true);
       }
     }, 1000);
     localStorage.setItem("interval", interval);
@@ -40,7 +42,14 @@ export default function addHandlePieceSelect(player, gameOver) {
       p.classList.remove("turn");
     });
   } else {
-    alert("GameOver");
+    alert("gameOver");
+    const turnCard = document.querySelector(".turnCard");
+    if (timeUp) {
+      console.log("hello");
+      turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
+    } else {
+      turnCard.innerHTML = `Player ${player} Lost`;
+    }
     pieces.forEach((p) => {
       p.onclick = null;
       p.classList.remove("turn");
