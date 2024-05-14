@@ -24,6 +24,11 @@ body {
   grid-auto-columns: auto;
   padding: 10px;
   flex-shrink: 0;
+  @media only screen and (max-width: 730px) {
+    height: calc(8 * 50px);
+    width: calc(8 * 50px);
+    margin-top: 10vh;
+  }
 }
 
 .cell {
