@@ -17,7 +17,7 @@ export default function addHandlePieceSelect(player, gameOver, timeUp = false) {
     const interval = setInterval(() => {
       time = time - 1000;
       timer.innerHTML = new Date(time).toISOString().slice(11, 19);
-      if (time === 0) {
+      if (time <= 0) {
         timeUp = true;
         console.log(timeUp);
         clearInterval(interval);

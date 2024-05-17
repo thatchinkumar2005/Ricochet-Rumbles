@@ -1,3 +1,3 @@
 export const settings = {
-  timerDuration: 30001,
+  timerDuration: 60000,
 };
