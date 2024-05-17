@@ -45,24 +45,24 @@ body {
 }
 
 .Titan {
-  background-image: url("/Assets/Titan.png");
+  background-image: url("../Assets/Titan.png");
   background-size: cover;
 }
 .Tank {
-  background-image: url("/Assets/Tank.png");
+  background-image: url("../Assets/Tank.png");
   background-size: cover;
 }
 .Cannon {
-  background-image: url("/Assets/Cannon.png");
+  background-image: url("../Assets/Cannon.png");
   background-size: cover;
 }
 
 .Ricochet {
-  background-image: url("/Assets/Ricochet.png");
+  background-image: url("../Assets/Ricochet.png");
   background-size: cover;
 }
 .SemiRicochet {
-  background-image: url("/Assets/SemiRicochet.png");
+  background-image: url("../Assets/SemiRicochet.png");
   background-size: cover;
 }
 
@@ -133,7 +133,7 @@ body {
 }
 
 .bullet {
-  background-image: url("/Assets/Bullet.png");
+  background-image: url("../Assets/Bullet.png");
   background-size: cover;
   width: 100%;
   height: 100%;
