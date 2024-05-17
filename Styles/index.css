@@ -25,8 +25,8 @@ body {
   padding: 10px;
   flex-shrink: 0;
   @media only screen and (max-width: 730px) {
-    height: calc(8 * 50px);
-    width: calc(8 * 50px);
+    height: calc(8 * 45px);
+    width: calc(8 * 45px);
     margin-top: 10vh;
   }
 }
