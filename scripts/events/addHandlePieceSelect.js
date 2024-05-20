@@ -1,4 +1,5 @@
 import { settings } from "../Globals/settings.js";
+import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
 
 export default function addHandlePieceSelect(
@@ -60,6 +61,7 @@ export default function addHandlePieceSelect(
   } else {
     alert("gameOver");
     const turnCard = document.querySelector(".turnCard");
+    const pauseButton = document.querySelector("#pause");
     if (timeUp) {
       console.log("hello");
       turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
@@ -70,6 +72,7 @@ export default function addHandlePieceSelect(
       p.onclick = null;
       p.classList.remove("turn");
     });
+    pauseButton.removeEventListener("click", handlePause);
     const restart = document.querySelector("#restart");
     restart.innerHTML = "Restart";
     restart.classList.add("restart");

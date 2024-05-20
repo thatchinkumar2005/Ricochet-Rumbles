@@ -6,8 +6,6 @@ export default function gameInit(initialPlayer, gameOver) {
     addHandlePieceSelect(initialPlayer, gameOver);
     const pauseButton = document.querySelector("#pause");
     console.log(pauseButton);
-    pauseButton.addEventListener("click", () => {
-      handlePause();
-    });
+    pauseButton.addEventListener("click", handlePause);
   }
 }
