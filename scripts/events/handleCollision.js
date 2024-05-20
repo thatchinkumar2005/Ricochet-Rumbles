@@ -55,7 +55,7 @@ export default async function handleCollision(piece) {
         case 3:
           dir = orientation[1];
       }
-      gameOver = await moveBullet(dir, srcLocation, piece.player); //recursive call
+      gameOver = await moveBullet(dir, srcLocation, bullet.player); //recursive call
     } else if (type === "SemiRicochet") {
       ricochet = true;
       const bullet = document.querySelector(".bullet");
@@ -87,7 +87,7 @@ export default async function handleCollision(piece) {
           return { gameOver, absorbed, ricochet };
       }
 
-      gameOver = await moveBullet(dir, srcLocation, piece.player); //recursive call
+      gameOver = await moveBullet(dir, srcLocation, bullet.player); //recursive call
     }
   }
   return { gameOver, absorbed, ricochet };
