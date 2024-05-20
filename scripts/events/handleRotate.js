@@ -1,6 +1,7 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
 import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
+import handlePause from "./handlePause.js";
 
 export default async function handleRotate(piece, dir) {
   let gameOver = false;
@@ -81,7 +82,9 @@ export default async function handleRotate(piece, dir) {
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
 
-  const prevInterval = localStorage.getItem("interval"); //getting the previous timer interval
+  const pause = document.querySelector("#pause");
+  pause.removeEventListener("click", handlePause);
+  const prevInterval = JSON.parse(localStorage.getItem("timer")).interval; //getting the previous timer interval
   clearInterval(Number(prevInterval)); //removing previous timer interval
 
   const bulletDir = piece.player === 1 ? 0 : 1;
