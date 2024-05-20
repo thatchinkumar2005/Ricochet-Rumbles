@@ -69,7 +69,7 @@ export default async function moveBullet(dir, srcLocation, player) {
   let currentLocation = initialLocation;
   let outOfBound = currentLocation[path] > 7 || currentLocation[path] < 0;
   if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-    await sleep(250);
+    await sleep(settings.bulletSpeed);
     const bullet = document.querySelector(".bullet");
     if (bullet) bullet.remove();
   }

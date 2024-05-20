@@ -14,6 +14,7 @@ export default function addHandlePieceSelect(
     `.piece.player${player === 1 ? 2 : 1}`
   );
   const pieces = document.querySelectorAll(".piece");
+  const pause = document.querySelector("#pause");
   //turn card
   //timer
 
@@ -23,8 +24,8 @@ export default function addHandlePieceSelect(
       let time = settings.timerDuration;
       const timer = document.querySelector("#timer");
       const interval = setInterval(() => {
-        time = time - 1000;
         timer.innerHTML = new Date(time).toISOString().slice(11, 19);
+        time = time - 1000;
         if (time <= 0) {
           timeUp = true;
           console.log(timeUp);
@@ -49,6 +50,7 @@ export default function addHandlePieceSelect(
     turnCard.innerHTML = `Player ${player}'s turn`;
 
     //events
+    pause.addEventListener("click", handlePause);
     playerPieces.forEach((p) => {
       p.onclick = (e) => {
         handlePieceSelect(e.srcElement);

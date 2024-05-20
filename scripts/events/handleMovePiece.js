@@ -1,5 +1,6 @@
 import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
+import handlePause from "./handlePause.js";
 
 export default async function handleMovePiece(piece, newCell, player) {
   //history
@@ -50,6 +51,8 @@ export default async function handleMovePiece(piece, newCell, player) {
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
 
+  const pause = document.querySelector("#pause");
+  pause.removeEventListener("click", handlePause);
   const prevInterval = JSON.parse(localStorage.getItem("timer")).interval; //getting the previous timer interval
   clearInterval(Number(prevInterval)); //removing previous timer interval
 
