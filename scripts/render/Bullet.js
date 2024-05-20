@@ -1,3 +1,4 @@
+import { settings } from "../Globals/settings.js";
 import handleCollision from "../events/handleCollision.js";
 
 export default async function moveBullet(dir, srcLocation, player) {
@@ -74,7 +75,7 @@ export default async function moveBullet(dir, srcLocation, player) {
   }
 
   while (!gameOver && !absorbed && !outOfBound && !ricochet) {
-    await sleep(250);
+    await sleep(settings.bulletSpeed);
     // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
     if (pathAction === "add") {
       currentLocation[path]++;
@@ -95,19 +96,12 @@ export default async function moveBullet(dir, srcLocation, player) {
       ricochet = data.ricochet;
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-      await sleep(250);
+      await sleep(settings.bulletSpeed);
       console.log(true);
       const bullet = document.querySelector(".bullet");
       if (bullet) bullet.remove();
     }
-    await sleep(125);
+    await sleep(settings.bulletSpeed / 2);
   }
-  // if (gameOver) {
-  //   alert("GameOver");
-  //   const pieces = document.querySelectorAll(".piece");
-  //   pieces.forEach((piece) => {
-  //     piece.onclick = null;
-  //   });
-  // }
   return gameOver;
 }
