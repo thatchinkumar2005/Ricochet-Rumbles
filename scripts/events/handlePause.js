@@ -1,6 +1,10 @@
+import addHandlePieceSelect from "./addHandlePieceSelect.js";
+
 export default function handlePause() {
   const timer = JSON.parse(localStorage.getItem("timer"));
   const timerDisplay = document.querySelector("#timer");
+  const pieces = document.querySelectorAll(".piece");
+  const dests = document.querySelectorAll(".validDest");
 
   if (timer.isPaused) {
     let time = timer.pauseTime;
@@ -24,6 +28,12 @@ export default function handlePause() {
         pauseTime: 0,
       })
     );
+
+    const pause = document.querySelector("#pause");
+    pause.style.backgroundImage = "url('../Assets/Pause.png')";
+    timerDisplay.style.color = "beige";
+
+    addHandlePieceSelect(player, false, false, false);
   } else {
     clearInterval(timer.interval);
     let pauseTimeStr = timerDisplay.innerHTML;
@@ -46,5 +56,19 @@ export default function handlePause() {
         pauseTime,
       })
     );
+
+    pieces.forEach((p) => {
+      p.onclick = null;
+      p.classList.remove("turn");
+    });
+
+    dests.forEach((d) => {
+      d.onclick = null;
+      d.classList.remove("validDest");
+    });
+
+    const pause = document.querySelector("#pause");
+    pause.style.backgroundImage = "url('../Assets/Play.png')";
+    timerDisplay.style.color = "grey";
   }
 }
