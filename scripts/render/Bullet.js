@@ -1,4 +1,4 @@
-import handleCollision from "./handleCollision.js";
+import handleCollision from "../events/handleCollision.js";
 
 export default async function moveBullet(dir, srcLocation, player) {
   let ricochet = false;

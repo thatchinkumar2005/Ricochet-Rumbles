@@ -1,4 +1,4 @@
-import moveBullet from "./Bullet.js";
+import moveBullet from "../render/Bullet.js";
 
 export default async function handleCollision(piece) {
   let gameOver = false,
@@ -8,6 +8,8 @@ export default async function handleCollision(piece) {
   console.log(piece);
   const Absorb = ["Tank", "Cannon"];
   const type = piece.type;
+  const collisionAudio = document.querySelector("#collision_audio");
+  collisionAudio.play();
   console.log(Absorb.includes(type));
   if (Absorb.includes(type)) {
     absorbed = true;

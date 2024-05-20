@@ -101,4 +101,6 @@ export default function handlePieceSelect(pieceElement) {
       }
     }
   }
+  const clickAudio = document.querySelector("#click_audio");
+  clickAudio.play();
 }

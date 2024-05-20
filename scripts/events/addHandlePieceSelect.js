@@ -1,6 +1,7 @@
 import { settings } from "../Globals/settings.js";
 import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
+import pieceHover from "./pieceHover.js";
 
 export default function addHandlePieceSelect(
   player,
@@ -52,16 +53,21 @@ export default function addHandlePieceSelect(
       p.onclick = (e) => {
         handlePieceSelect(e.srcElement);
       };
+      p.addEventListener("mouseenter", pieceHover);
       p.classList.add("turn");
     });
     otherPieces.forEach((p) => {
       p.onclick = null;
       p.classList.remove("turn");
+      p.removeEventListener("mouseenter", pieceHover);
     });
   } else {
-    alert("gameOver");
     const turnCard = document.querySelector(".turnCard");
     const pauseButton = document.querySelector("#pause");
+    const dests = document.querySelector(".validDest");
+    const gameOverAudio = document.querySelector("#gameover_audio");
+    gameOverAudio.play();
+    alert("gameOver");
     if (timeUp) {
       console.log("hello");
       turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
@@ -73,11 +79,19 @@ export default function addHandlePieceSelect(
       p.classList.remove("turn");
     });
     pauseButton.removeEventListener("click", handlePause);
+    pieces.forEach((p) => {
+      p.removeEventListener("mouseenter", pieceHover);
+    });
     const restart = document.querySelector("#restart");
     restart.innerHTML = "Restart";
     restart.classList.add("restart");
     restart.onclick = () => {
       document.location.reload();
     };
+    if (dests)
+      dests.forEach((d) => {
+        d.onclick = null;
+        d.classList.remove("validDest");
+      });
   }
 }

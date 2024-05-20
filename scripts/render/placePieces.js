@@ -1,4 +1,5 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
+import pieceHover from "../events/pieceHover.js";
 
 export default function placePieces(players) {
   //for gameHistory

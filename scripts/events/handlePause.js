@@ -1,4 +1,5 @@
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
+import pieceHover from "./pieceHover.js";
 
 export default function handlePause() {
   const timer = JSON.parse(localStorage.getItem("timer"));
@@ -60,6 +61,7 @@ export default function handlePause() {
     pieces.forEach((p) => {
       p.onclick = null;
       p.classList.remove("turn");
+      p.removeEventListener("mouseenter", pieceHover);
     });
 
     dests.forEach((d) => {
