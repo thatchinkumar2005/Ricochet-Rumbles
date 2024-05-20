@@ -66,6 +66,8 @@ export default function addHandlePieceSelect(
     const pauseButton = document.querySelector("#pause");
     const dests = document.querySelector(".validDest");
     const gameOverAudio = document.querySelector("#gameover_audio");
+    gameOverAudio.pause();
+    gameOverAudio.currentTime = 0;
     gameOverAudio.play();
     alert("gameOver");
     if (timeUp) {

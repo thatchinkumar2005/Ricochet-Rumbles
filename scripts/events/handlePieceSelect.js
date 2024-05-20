@@ -102,5 +102,7 @@ export default function handlePieceSelect(pieceElement) {
     }
   }
   const clickAudio = document.querySelector("#click_audio");
+  clickAudio.pause();
+  clickAudio.currentTime = 0;
   clickAudio.play();
 }

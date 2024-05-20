@@ -7,6 +7,11 @@ export default function handlePause() {
   const pieces = document.querySelectorAll(".piece");
   const dests = document.querySelectorAll(".validDest");
 
+  const pauseAudio = document.querySelector("#pause_audio");
+  pauseAudio.pause();
+  pauseAudio.currentTime = 0;
+  pauseAudio.play();
+
   if (timer.isPaused) {
     let time = timer.pauseTime;
     console.log(time);
