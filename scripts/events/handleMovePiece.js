@@ -50,7 +50,7 @@ export default async function handleMovePiece(piece, newCell, player) {
     Number(Cannon_Cell.getAttribute("data-col")),
   ];
 
-  const prevInterval = localStorage.getItem("interval"); //getting the previous timer interval
+  const prevInterval = JSON.parse(localStorage.getItem("timer")).interval; //getting the previous timer interval
   clearInterval(Number(prevInterval)); //removing previous timer interval
 
   const dir = player === "player1" ? 0 : 1;

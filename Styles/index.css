@@ -162,3 +162,25 @@ body {
     border: beige solid 1px;
   }
 }
+
+#pause {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-image: url("../Assets/Pause.png");
+  background-size: cover;
+  border: 1px solid beige;
+  margin-top: 8px;
+  transition: all 250ms;
+  &:hover {
+    transform: scale(1.1);
+    border-color: grey;
+  }
+}
+
+.timer_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}

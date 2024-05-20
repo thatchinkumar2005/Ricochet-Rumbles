@@ -25,7 +25,15 @@ export default function addHandlePieceSelect(player, gameOver, timeUp = false) {
         addHandlePieceSelect(player === 1 ? 2 : 1, true, true);
       }
     }, 1000);
-    localStorage.setItem("interval", interval);
+    localStorage.setItem(
+      "timer",
+      JSON.stringify({
+        interval,
+        isPaused: false,
+        curPlayer: player,
+        pauseTime: 0,
+      })
+    );
 
     //turn Card
     const turnCard = document.querySelector(".turnCard");
