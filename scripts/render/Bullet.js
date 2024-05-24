@@ -5,6 +5,7 @@ export default async function moveBullet(dir, srcLocation, player) {
   let ricochet = false;
   let absorbed = false;
   let gameOver = false;
+  let semiRicochetBroken = false;
 
   const playerPieces = document.querySelectorAll(`.piece.player${player}`);
   playerPieces.forEach((p) => {
@@ -74,7 +75,8 @@ export default async function moveBullet(dir, srcLocation, player) {
     if (bullet) bullet.remove();
   }
 
-  while (!gameOver && !absorbed && !outOfBound && !ricochet) {
+  while (!(gameOver || absorbed || ricochet || semiRicochetBroken)) {
+    //loop to move the bullet
     await sleep(settings.bulletSpeed);
     // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
     if (pathAction === "add") {
@@ -94,6 +96,8 @@ export default async function moveBullet(dir, srcLocation, player) {
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
+      semiRicochetBroken = data.semiRicochetBroken;
+      console.log(data);
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
       await sleep(settings.bulletSpeed);

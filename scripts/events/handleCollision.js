@@ -3,7 +3,8 @@ import moveBullet from "../render/Bullet.js";
 export default async function handleCollision(piece) {
   let gameOver = false,
     absorbed = false,
-    ricochet = false;
+    ricochet = false,
+    semiRicochetBroken = false;
   let prevDir;
   console.log(piece);
   const Absorb = ["Tank", "Cannon"];
@@ -18,13 +19,13 @@ export default async function handleCollision(piece) {
     console.log("Absorbed");
     const bullet = document.querySelector(".bullet");
     bullet.remove();
-    return { gameOver, absorbed, ricochet };
+    return { gameOver, absorbed, ricochet, semiRicochetBroken };
   } else if (type === "Titan") {
     const bullet = document.querySelector(".bullet");
     gameOver = bullet.player !== piece.player;
     console.log(gameOver);
     bullet.remove();
-    return { gameOver, absorbed, ricochet };
+    return { gameOver, absorbed, ricochet, semiRicochetBroken };
   } else {
     if (type === "Ricochet") {
       ricochet = true;
@@ -82,13 +83,20 @@ export default async function handleCollision(piece) {
           break;
         default:
           ricochet = false;
-          absorbed = true;
-          console.log("absorbed");
-          return { gameOver, absorbed, ricochet };
+          semiRicochetBroken = true;
+          console.log("Semiricochet broken");
+          piece.remove();
+          const semiRicochetBreakAudio = document.querySelector(
+            "#semiRicochetBreakAudio"
+          );
+          semiRicochetBreakAudio.pause();
+          semiRicochetBreakAudio.currentTime = 0;
+          semiRicochetBreakAudio.play();
+          return { gameOver, absorbed, ricochet, semiRicochetBroken };
       }
 
       gameOver = await moveBullet(dir, srcLocation, bullet.player); //recursive call
     }
   }
-  return { gameOver, absorbed, ricochet };
+  return { gameOver, absorbed, ricochet, semiRicochetBroken };
 }
