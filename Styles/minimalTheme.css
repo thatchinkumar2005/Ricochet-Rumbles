@@ -10,19 +10,11 @@ body {
   align-items: center;
   flex-direction: column;
   overflow: scroll;
-  background-image: url("../Assets/Background.png");
-  backdrop-filter: saturate(180%) blur(8px);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 #board {
   height: calc(8 * 80px);
   width: calc(8 * 80px);
-  background-color: rgb(66, 245, 245, 0.15);
-  backdrop-filter: saturate(180%) blur(10px);
-  border: solid skyblue 2px;
-  border-radius: 10px;
+  background-color: #222831;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -40,8 +32,7 @@ body {
 }
 
 .cell {
-  background: transparent;
-  border: 2px cyan solid;
+  background-color: #31363f;
   overflow: scroll;
   display: flex;
   justify-content: center;
@@ -76,10 +67,10 @@ body {
 }
 
 .player1 {
-  border: red 2px solid;
+  border: red 1px solid;
 }
 .player2 {
-  border: blue 2px solid;
+  border: blue 1px solid;
 }
 
 .heading {
@@ -98,7 +89,7 @@ body {
 }
 
 .validDest {
-  border: orange solid 2px;
+  border: white solid 2px;
   transition: all 250ms;
   &:hover {
     background-color: paleturquoise;
@@ -137,7 +128,7 @@ body {
 .turn {
   transition: all 250ms;
   &:hover {
-    background-color: rgb(255, 234, 227, 0.4);
+    background-color: rgba(64, 197, 255, 0.8);
   }
 }
 
