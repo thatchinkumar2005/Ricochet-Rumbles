@@ -30,8 +30,6 @@ export default async function handleMovePiece(piece, newCell, player) {
   localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
   console.log(gameHistory);
 
-  const prevCell = piece.parentElement;
-
   //clearing the controlls
   const controlls = document.querySelector("#controlls");
   controlls.innerHTML = "";

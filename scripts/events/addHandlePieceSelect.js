@@ -55,7 +55,7 @@ export default function addHandlePieceSelect(
       p.onclick = (e) => {
         handlePieceSelect(e.srcElement);
       };
-      p.addEventListener("mouseenter", pieceHover);
+      p.addEventListener("mouseenter", pieceHover); //audio on hover event
       p.classList.add("turn");
     });
     otherPieces.forEach((p) => {
