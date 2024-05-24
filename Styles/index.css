@@ -172,6 +172,20 @@ body {
   }
 }
 
+.timer_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnCard {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
 #pause {
   height: 30px;
   width: 30px;
@@ -180,14 +194,46 @@ body {
   margin-top: 8px;
   transition: all 250ms;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
     border-color: grey;
   }
 }
 
-.timer_container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
+#restart {
+  height: 30px;
+  width: 30px;
+  background-image: url("../Assets/restart.png");
+  background-size: cover;
+  margin-top: 8px;
+  transition: all 250ms;
+  &:hover {
+    transform: scale(1.15);
+    border-color: grey;
+  }
+}
+
+#undo {
+  height: 30px;
+  width: 30px;
+  background-image: url("../Assets/undo.png");
+  background-size: cover;
+  margin-top: 8px;
+  transition: all 250ms;
+  &:hover {
+    transform: scale(1.15);
+    border-color: grey;
+  }
+}
+
+#redo {
+  height: 30px;
+  width: 30px;
+  background-image: url("../Assets/redo.png");
+  background-size: cover;
+  margin-top: 8px;
+  transition: all 250ms;
+  &:hover {
+    transform: scale(1.15);
+    border-color: grey;
+  }
 }
