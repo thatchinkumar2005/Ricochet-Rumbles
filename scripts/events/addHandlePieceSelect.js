@@ -86,7 +86,7 @@ export default function addHandlePieceSelect(
     pieces.forEach((p) => {
       p.removeEventListener("mouseenter", pieceHover);
     });
-    const restart = document.querySelector("#restart");
+    const restart = document.querySelector("#restartGameOver");
     restart.innerHTML = "Restart";
     restart.classList.add("restart");
     restart.onclick = () => {
