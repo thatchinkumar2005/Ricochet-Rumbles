@@ -8,11 +8,11 @@ export default function handleDos(do_) {
   let player_;
 
   if (do_ === "undo") {
-    writeHistory("Undo");
     doIndex++;
     console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
     if (!round) return;
+    writeHistory("Undo");
     console.log(round);
 
     for (let i = 0; i < 2; i++) {
@@ -82,9 +82,9 @@ export default function handleDos(do_) {
     clearInterval(prevInterval);
     addHandlePieceSelect(player_, false);
   } else {
-    writeHistory("Redo");
     doIndex--;
     if (doIndex === -1) return;
+    writeHistory("Redo");
     console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
     if (!round) return;
