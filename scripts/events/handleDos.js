@@ -21,7 +21,14 @@ export default function handleDos(do_) {
           const newCell = document.querySelector(
             `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
           );
-          const piece = document.querySelector(`.${p}.player${i + 1}`);
+          let piece = document.querySelector(`.${p}.player${i + 1}`);
+          if (!piece) {
+            piece = document.createElement("div");
+            piece.classList.add("piece", p, `player${i + 1}`);
+            newCell.append(piece);
+            console.log("This is a piece");
+            console.log(piece);
+          }
           !player_ && piece.classList.contains("turn")
             ? (player_ = i + 1 === 1 ? 2 : 1)
             : null;
