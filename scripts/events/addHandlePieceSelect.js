@@ -67,6 +67,8 @@ export default function addHandlePieceSelect(
     const turnCard = document.querySelector(".turnCard");
     const pauseButton = document.querySelector("#pause");
     const dests = document.querySelectorAll(".validDest");
+    const controlls = document.querySelector("#controlls");
+
     const gameOverAudio = document.querySelector("#gameover_audio");
     gameOverAudio.pause();
     gameOverAudio.currentTime = 0;
@@ -99,5 +101,6 @@ export default function addHandlePieceSelect(
         d.classList.remove("validDest");
       });
     }
+    controlls.innerHTML = "";
   }
 }
