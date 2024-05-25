@@ -6,10 +6,15 @@ export default async function handleMovePiece(piece, newCell, player) {
   //history
   //if i is the turn, then ith index in gamehistory represents board pieces position after ith turn player moves. i is even => player 2, i is odd => player 1
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+  const doIndex = localStorage.getItem("doIndex");
+  if (doIndex > 0) {
+    gameHistory.splice(gameHistory.length - doIndex, doIndex);
+    localStorage.setItem("doIndex", 0);
+  }
   const turn = gameHistory.length;
   console.log(turn);
-  const prevRound = gameHistory[turn - 1];
 
+  const prevRound = gameHistory[turn - 1];
   if (player === "player2") {
     const player2 = structuredClone(prevRound.player2);
     if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {

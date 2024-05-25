@@ -20,6 +20,11 @@ export default async function handleRotate(piece, dir) {
 
   //gameHistory
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+  const doIndex = localStorage.getItem("doIndex");
+  if (doIndex > 0) {
+    gameHistory.splice(gameHistory.length - doIndex, doIndex);
+    localStorage.setItem("doIndex", 0);
+  }
   const turn = gameHistory.length;
   const prevRound = gameHistory[turn - 1];
 

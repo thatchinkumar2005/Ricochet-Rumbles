@@ -15,6 +15,11 @@ export default function gameInit(initialPlayer, gameOver) {
     undoButton.addEventListener("click", () => {
       handleDos("undo");
     });
+
+    const redoButton = document.querySelector("#redo");
+    redoButton.addEventListener("click", () => {
+      handleDos("redo");
+    });
     localStorage.setItem("doIndex", 0);
   }
 }

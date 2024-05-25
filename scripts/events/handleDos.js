@@ -1,3 +1,4 @@
+import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
 import { players } from "../Globals/players.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 export default function handleDos(do_) {
@@ -7,7 +8,7 @@ export default function handleDos(do_) {
 
   if (do_ === "undo") {
     doIndex++;
-    console.log(`THIS : ${gameHistory.length - (doIndex + 1)}`);
+    console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
     if (!round) return;
     console.log(round);
@@ -24,12 +25,38 @@ export default function handleDos(do_) {
           let piece = document.querySelector(`.${p}.player${i + 1}`);
           if (!piece) {
             piece = document.createElement("div");
+            piece.type = p;
+            piece.player = i + 1;
             piece.classList.add("piece", p, `player${i + 1}`);
             newCell.append(piece);
-            console.log("This is a piece");
-            console.log(piece);
           }
-          !player_ && piece.classList.contains("turn")
+          piece.orientation = player[p].orientation;
+          if (piece.type === "Ricochet") {
+            switch (piece.orientation) {
+              case Ricochet.type1:
+                piece.style.transform = "rotate(0deg)";
+                break;
+              case Ricochet.type2:
+                piece.style.transform = "rotate(90deg)";
+                break;
+            }
+          } else if (piece.type === "SemiRicochet") {
+            switch (piece.orientation) {
+              case SemiRicochet.type1:
+                piece.style.transform = "rotate(0deg)";
+                break;
+              case SemiRicochet.type2:
+                piece.style.transform = "rotate(90deg)";
+                break;
+              case SemiRicochet.type3:
+                piece.style.transform = "rotate(180deg)";
+                break;
+              case SemiRicochet.type4:
+                piece.style.transform = "rotate(270deg)";
+                break;
+            }
+          }
+          !player_ && piece.classList.contains("turn") //figuring the player out
             ? (player_ = i + 1 === 1 ? 2 : 1)
             : null;
           console.log(piece);
@@ -53,10 +80,78 @@ export default function handleDos(do_) {
     clearInterval(prevInterval);
     addHandlePieceSelect(player_, false);
   } else {
-    if (doIndex === -1) return;
     doIndex--;
+    if (doIndex === -1) return;
+    console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
+    if (!round) return;
     console.log(round);
+
+    for (let i = 0; i < 2; i++) {
+      const player = structuredClone(round[`player${i + 1}`]);
+      console.log(players);
+      players[i].pieces.forEach((p) => {
+        if (p === "Ricochet" || p === "SemiRicochet") {
+          console.log(p);
+          const newCell = document.querySelector(
+            `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
+          );
+          let piece = document.querySelector(`.${p}.player${i + 1}`);
+          if (!piece) {
+            piece = document.createElement("div");
+            piece.type = p;
+            piece.player = i + 1;
+            piece.classList.add("piece", p, `player${i + 1}`);
+            newCell.append(piece);
+          }
+          piece.orientation = player[p].orientation;
+          if (piece.type === "Ricochet") {
+            switch (piece.orientation) {
+              case Ricochet.type1:
+                piece.style.transform = "rotate(0deg)";
+                break;
+              case Ricochet.type2:
+                piece.style.transform = "rotate(90deg)";
+                break;
+            }
+          } else if (piece.type === "SemiRicochet") {
+            switch (piece.orientation) {
+              case SemiRicochet.type1:
+                piece.style.transform = "rotate(0deg)";
+                break;
+              case SemiRicochet.type2:
+                piece.style.transform = "rotate(90deg)";
+                break;
+              case SemiRicochet.type3:
+                piece.style.transform = "rotate(180deg)";
+                break;
+              case SemiRicochet.type4:
+                piece.style.transform = "rotate(270deg)";
+                break;
+            }
+          }
+          !player_ && piece.classList.contains("turn") //figuring the player out
+            ? (player_ = i + 1 === 1 ? 2 : 1)
+            : null;
+          console.log(piece);
+          piece.remove();
+          newCell.append(piece);
+        } else {
+          console.log(p);
+          const newCell = document.querySelector(
+            `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
+          );
+          const piece = document.querySelector(`.${p}.player${i + 1}`);
+          console.log(piece);
+          piece.remove();
+          newCell.append(piece);
+        }
+      });
+    }
+    console.log(player_);
     localStorage.setItem("doIndex", doIndex);
+    const prevInterval = JSON.parse(localStorage.getItem("timer")).interval;
+    clearInterval(prevInterval);
+    addHandlePieceSelect(player_, false);
   }
 }
