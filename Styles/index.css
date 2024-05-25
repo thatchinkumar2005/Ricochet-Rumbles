@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  font-family: "Goldman", sans-serif;
 }
 
 .container {
@@ -33,10 +34,57 @@ body {
   padding: 10px;
   flex-shrink: 0;
   @media only screen and (max-width: 730px) {
-    height: calc(8 * 50px);
-    width: calc(8 * 50px);
+    height: calc(8 * 40px);
+    width: calc(8 * 40px);
     margin-top: 10vh;
   }
+  flex-grow: 0;
+}
+
+.gameBox {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  height: 80%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (max-width: 730px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.history {
+  display: flex;
+  height: 90%;
+  width: 30%;
+  background: transparent;
+  flex-grow: 0;
+  border-radius: 20px;
+  border: skyblue solid 2px;
+  backdrop-filter: blur(10px);
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 730px) {
+    width: 80%;
+  }
+  overflow: scroll;
+}
+
+.msg {
+  height: 60px;
+  width: 90%;
+  border-radius: 10px;
+  background: transparent;
+  backdrop-filter: filter(8px);
+  flex-grow: 0;
+  flex-shrink: 0;
+  border: 1px solid beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .cell {
@@ -87,6 +135,7 @@ body {
   gap: 10px;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 #timer {
   color: beige;
@@ -132,6 +181,7 @@ body {
 #controlls {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .turn {

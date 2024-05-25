@@ -1,8 +1,18 @@
 import moveBullet from "../render/Bullet.js";
+import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
 
 export default async function handleMovePiece(piece, newCell, player) {
+  writeHistory(
+    ` ${player} moved ${piece.type} to (${newCell.getAttribute(
+      "data-row"
+    )}, ${newCell.getAttribute(
+      "data-col"
+    )}) from (${piece.parentElement.getAttribute(
+      "data-row"
+    )}, ${piece.parentElement.getAttribute("data-col")})`
+  );
   //history
   //if i is the turn, then ith index in gamehistory represents board pieces position after ith turn player moves. i is even => player 2, i is odd => player 1
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));

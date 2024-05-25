@@ -1,5 +1,6 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
 import moveBullet from "../render/Bullet.js";
+import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
 
@@ -17,7 +18,7 @@ export default async function handleRotate(piece, dir) {
   //   const newAngle = prevAngle + (dir === "left" ? -90 : 90);
   //   piece.style.transform = `rotate(${newAngle}deg)`.toString();
   // }
-
+  writeHistory(`Player${piece.player} rotated his ${piece.type} ${dir}`);
   //gameHistory
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
   const doIndex = localStorage.getItem("doIndex");

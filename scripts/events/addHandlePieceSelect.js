@@ -1,4 +1,5 @@
 import { settings } from "../Globals/settings.js";
+import writeHistory from "../render/writeHistory.js";
 import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
 import pieceHover from "./pieceHover.js";
@@ -77,8 +78,10 @@ export default function addHandlePieceSelect(
     if (timeUp) {
       console.log("hello");
       turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
+      writeHistory(`Player ${player === 1 ? 2 : 1} Lost`);
     } else {
       turnCard.innerHTML = `Player ${player} Lost`;
+      writeHistory(`Player ${player} Lost`);
     }
     pieces.forEach((p) => {
       p.onclick = null;
