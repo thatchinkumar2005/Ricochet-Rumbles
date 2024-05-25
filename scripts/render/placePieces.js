@@ -44,11 +44,22 @@ export default function placePieces(players) {
       piece.orientation = SemiRicochet.type1;
     }
     cell.appendChild(piece);
-    Object.defineProperty(piecesLocations.player1, player1Pieces[i], {
-      value: player1Locations[i],
-      enumerable: true,
-      writable: true,
-    });
+    if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
+      Object.defineProperty(piecesLocations.player1, player1Pieces[i], {
+        value: {
+          location: player1Locations[i],
+          orientation: piece.orientation,
+        },
+        enumerable: true,
+        writable: true,
+      });
+    } else {
+      Object.defineProperty(piecesLocations.player1, player1Pieces[i], {
+        value: player1Locations[i],
+        enumerable: true,
+        writable: true,
+      });
+    }
   }
   //player 2
   const player2Pieces = players[1].pieces;
@@ -67,11 +78,22 @@ export default function placePieces(players) {
     }
     piece.classList.add("piece", "player2", player2Pieces[i]);
     cell.appendChild(piece);
-    Object.defineProperty(piecesLocations.player2, player2Pieces[i], {
-      value: player2Locations[i],
-      enumerable: true,
-      writable: true,
-    });
+    if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
+      Object.defineProperty(piecesLocations.player2, player2Pieces[i], {
+        value: {
+          location: player2Locations[i],
+          orientation: piece.orientation,
+        },
+        enumerable: true,
+        writable: true,
+      });
+    } else {
+      Object.defineProperty(piecesLocations.player2, player2Pieces[i], {
+        value: player2Locations[i],
+        enumerable: true,
+        writable: true,
+      });
+    }
   }
   const gameHistory = [];
   gameHistory.push(piecesLocations);

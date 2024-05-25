@@ -5,20 +5,19 @@ import handlePause from "./handlePause.js";
 
 export default async function handleRotate(piece, dir) {
   let gameOver = false;
-  if (!piece.style.transform) {
-    if (dir === "left") {
-      piece.style.transform = "rotate(-90deg)";
-    } else if (dir === "right") {
-      piece.style.transform = "rotate(90deg)";
-    }
-  } else {
-    const prevAngle = Number(piece.style.transform.match(/-?\d*\.{0,1}\d/)[0]);
+  // if (!piece.style.transform) {
+  //   if (dir === "left") {
+  //     piece.style.transform = "rotate(-90deg)";
+  //   } else if (dir === "right") {
+  //     piece.style.transform = "rotate(90deg)";
+  //   }
+  // } else {
+  //   const prevAngle = Number(piece.style.transform.match(/-?\d*\.{0,1}\d/)[0]);
 
-    const newAngle = prevAngle + (dir === "left" ? -90 : 90);
-    piece.style.transform = `rotate(${newAngle}deg)`.toString();
-  }
+  //   const newAngle = prevAngle + (dir === "left" ? -90 : 90);
+  //   piece.style.transform = `rotate(${newAngle}deg)`.toString();
+  // }
   //Ricochet Orientation
-  console.log("before");
   console.log(piece.orientation);
   if (piece.type === "Ricochet") {
     if (piece.orientation === Ricochet.type1) {
@@ -59,6 +58,32 @@ export default async function handleRotate(piece, dir) {
           piece.orientation = SemiRicochet.type3;
           break;
       }
+    }
+  }
+
+  if (piece.type === "Ricochet") {
+    switch (piece.orientation) {
+      case Ricochet.type1:
+        piece.style.transform = "rotate(0deg)";
+        break;
+      case Ricochet.type2:
+        piece.style.transform = "rotate(90deg)";
+        break;
+    }
+  } else if (piece.type === "SemiRicochet") {
+    switch (piece.orientation) {
+      case SemiRicochet.type1:
+        piece.style.transform = "rotate(0deg)";
+        break;
+      case SemiRicochet.type2:
+        piece.style.transform = "rotate(90deg)";
+        break;
+      case SemiRicochet.type3:
+        piece.style.transform = "rotate(180deg)";
+        break;
+      case SemiRicochet.type4:
+        piece.style.transform = "rotate(270deg)";
+        break;
     }
   }
 
