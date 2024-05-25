@@ -17,6 +17,12 @@ export default async function handleRotate(piece, dir) {
   //   const newAngle = prevAngle + (dir === "left" ? -90 : 90);
   //   piece.style.transform = `rotate(${newAngle}deg)`.toString();
   // }
+
+  //gameHistory
+  const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+  const turn = gameHistory.length;
+  const prevRound = gameHistory[turn - 1];
+
   //Ricochet Orientation
   console.log(piece.orientation);
   if (piece.type === "Ricochet") {
@@ -61,6 +67,21 @@ export default async function handleRotate(piece, dir) {
     }
   }
 
+  //gameHistory
+  let round;
+  if (piece.player === 2) {
+    const player2 = structuredClone(prevRound.player2);
+    player2[piece.type].orientation = piece.orientation;
+    round = { player1: prevRound.player1, player2 };
+  } else {
+    const player1 = structuredClone(prevRound.player1);
+    player1[piece.type].orientation = piece.orientation;
+    round = { player1, player2: prevRound.player2 };
+  }
+  gameHistory.push(round);
+  localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+
+  //Piece Rotation
   if (piece.type === "Ricochet") {
     switch (piece.orientation) {
       case Ricochet.type1:
