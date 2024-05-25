@@ -4,19 +4,9 @@ import placePieces from "./render/placePieces.js";
 
 let initialPlayer = 1;
 let gameOver = false;
-const players = [
-  {
-    player: 1,
-    pieces: ["Titan", "Tank", "Ricochet", "SemiRicochet", "Cannon"],
-  },
-  {
-    player: 2,
-    pieces: ["Titan", "Tank", "Ricochet", "SemiRicochet", "Cannon"],
-  },
-];
 
 placeCells();
-placePieces(players, initialPlayer);
+placePieces();
 const turnCard = document.querySelector(".turnCard");
 turnCard.innerHTML = `Player ${initialPlayer}'s turn`;
 

@@ -1,7 +1,7 @@
 import { Ricochet, SemiRicochet } from "../Globals/RicochetOrientation.js";
-import pieceHover from "../events/pieceHover.js";
+import { players } from "../Globals/players.js";
 
-export default function placePieces(players) {
+export default function placePieces() {
   //for gameHistory
   const piecesLocations = {
     player1: {},

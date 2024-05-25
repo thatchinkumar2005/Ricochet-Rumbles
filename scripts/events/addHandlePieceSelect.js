@@ -24,8 +24,8 @@ export default function addHandlePieceSelect(
       let time = settings.timerDuration;
       const timer = document.querySelector("#timer");
       const interval = setInterval(() => {
-        timer.innerHTML = new Date(time).toISOString().slice(11, 19);
         time = time - 1000;
+        timer.innerHTML = new Date(time).toISOString().slice(11, 19);
         if (time <= 0) {
           timeUp = true;
           console.log(timeUp);
