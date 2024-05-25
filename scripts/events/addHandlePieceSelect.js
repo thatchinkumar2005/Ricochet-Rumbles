@@ -66,7 +66,7 @@ export default function addHandlePieceSelect(
   } else {
     const turnCard = document.querySelector(".turnCard");
     const pauseButton = document.querySelector("#pause");
-    const dests = document.querySelector(".validDest");
+    const dests = document.querySelectorAll(".validDest");
     const gameOverAudio = document.querySelector("#gameover_audio");
     gameOverAudio.pause();
     gameOverAudio.currentTime = 0;
@@ -92,10 +92,12 @@ export default function addHandlePieceSelect(
     restart.onclick = () => {
       document.location.reload();
     };
-    if (dests)
-      dests.forEach((d) => {
+    if (dests) {
+      console.log(dests);
+      Array.from(dests).forEach((d) => {
         d.onclick = null;
         d.classList.remove("validDest");
       });
+    }
   }
 }

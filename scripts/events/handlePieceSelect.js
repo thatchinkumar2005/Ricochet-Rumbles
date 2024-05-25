@@ -11,8 +11,8 @@ export default function handlePieceSelect(pieceElement) {
   //clearing previous validDest classes to remove the highlighted boxes and event handlers
   const prevDest = document.querySelectorAll(".validDest");
   prevDest.forEach((dest) => {
-    dest.classList.remove("validDest");
-    dest.onclick = null;
+    dest.classList.remove("validDest"); //remove highlights
+    dest.onclick = null; //remove eventHandlers
   });
 
   //clearing the controlls

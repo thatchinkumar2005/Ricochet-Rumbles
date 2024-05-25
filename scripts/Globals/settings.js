@@ -1,4 +1,4 @@
 export const settings = {
-  timerDuration: 60000,
+  timerDuration: 5000,
   bulletSpeed: 150,
 };
