@@ -10,20 +10,37 @@ export default async function handleMovePiece(piece, newCell, player) {
   console.log(turn);
   const prevRound = gameHistory[turn - 1];
 
-  if (turn % 2 === 0) {
-    const player2 = { ...prevRound.player2 };
-    player2[piece.type] = [
-      Number(newCell.getAttribute("data-row")),
-      Number(newCell.getAttribute("data-col")),
-    ];
+  if (player === "player2") {
+    const player2 = structuredClone(prevRound.player2);
+    if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
+      console.log(player2[piece.type].location);
+      player2[piece.type].location = [
+        Number(newCell.getAttribute("data-row")),
+        Number(newCell.getAttribute("data-col")),
+      ];
+      console.log(player2[piece.type].location);
+    } else {
+      player2[piece.type] = [
+        Number(newCell.getAttribute("data-row")),
+        Number(newCell.getAttribute("data-col")),
+      ];
+    }
+    console.log(player2);
     const round = { player1: prevRound.player1, player2 };
     gameHistory.push(round);
   } else {
-    const player1 = { ...prevRound.player1 };
-    player1[piece.type] = [
-      Number(newCell.getAttribute("data-row")),
-      Number(newCell.getAttribute("data-col")),
-    ];
+    const player1 = structuredClone(prevRound.player1);
+    if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
+      player1[piece.type].location = [
+        Number(newCell.getAttribute("data-row")),
+        Number(newCell.getAttribute("data-col")),
+      ];
+    } else {
+      player1[piece.type] = [
+        Number(newCell.getAttribute("data-row")),
+        Number(newCell.getAttribute("data-col")),
+      ];
+    }
     const round = { player1, player2: prevRound.player2 };
     gameHistory.push(round);
   }
