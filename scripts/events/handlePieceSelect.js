@@ -8,10 +8,11 @@ export default function handlePieceSelect(pieceElement) {
   const col = Number(cell.getAttribute("data-col"));
   // const controller = new AbortController();
 
-  //clearing previous validDest classes to remove the highlighted boxes
+  //clearing previous validDest classes to remove the highlighted boxes and event handlers
   const prevDest = document.querySelectorAll(".validDest");
   prevDest.forEach((dest) => {
     dest.classList.remove("validDest");
+    dest.onclick = null;
   });
 
   //clearing the controlls
