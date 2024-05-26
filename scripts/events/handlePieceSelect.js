@@ -48,6 +48,14 @@ export default function handlePieceSelect(pieceElement) {
     RotateRightButton.innerHTML =
       "<img src='Assets/RotateRight.png' class='btnimg'/>";
     controlls.appendChild(RotateRightButton);
+
+    if (pieceElement.type === "Ricochet") {
+      const swapButton = document.createElement("div");
+      swapButton.classList.add("btn");
+      swapButton.onClick = () => {};
+      swapButton.innerHTML = "<img src='Assets/Swap.png' class='btnimg'/>";
+      controlls.appendChild(swapButton);
+    }
   }
 
   //finding the valid dest cells for a the piece

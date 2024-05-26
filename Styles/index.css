@@ -18,8 +18,8 @@ body {
   background-position: center;
 }
 #board {
-  height: calc(8 * 80px);
-  width: calc(8 * 80px);
+  height: calc(8 * 75px);
+  width: calc(8 * 75px);
   background-color: rgb(66, 245, 245, 0.15);
   backdrop-filter: saturate(180%) blur(10px);
   border: solid skyblue 2px;
@@ -45,7 +45,7 @@ body {
   display: flex;
   padding: 10px;
   gap: 10px;
-  height: 80%;
+  height: 75%;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@ body {
 
 .history {
   display: flex;
-  height: 90%;
+  height: 95%;
   width: 30%;
   background: transparent;
   flex-grow: 0;
@@ -158,11 +158,19 @@ body {
   height: 40px;
   width: 40px;
 }
+.btnimg_ {
+  height: 35px;
+  width: 35px;
+}
 .btn {
   background-color: wheat;
   transition: all 140ms;
 
   border-radius: 50%;
+  transition: all 250ms;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .left {

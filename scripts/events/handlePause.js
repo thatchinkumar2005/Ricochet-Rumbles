@@ -6,6 +6,7 @@ export default function handlePause() {
   const timerDisplay = document.querySelector("#timer");
   const pieces = document.querySelectorAll(".piece");
   const dests = document.querySelectorAll(".validDest");
+  const controlls = document.querySelector("#controlls");
 
   const pauseAudio = document.querySelector("#pause_audio");
   pauseAudio.pause();
@@ -73,6 +74,8 @@ export default function handlePause() {
       d.onclick = null;
       d.classList.remove("validDest");
     });
+
+    controlls.innerHTML = "";
 
     const pause = document.querySelector("#pause");
     pause.style.backgroundImage = "url('../Assets/Play.png')";

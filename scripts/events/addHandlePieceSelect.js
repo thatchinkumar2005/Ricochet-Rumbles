@@ -78,10 +78,10 @@ export default function addHandlePieceSelect(
     if (timeUp) {
       console.log("hello");
       turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
-      writeHistory(`Player ${player === 1 ? 2 : 1} Lost`);
+      writeHistory(`Player ${player === 1 ? 2 : 1} Lost by losing Time`);
     } else {
       turnCard.innerHTML = `Player ${player} Lost`;
-      writeHistory(`Player ${player} Lost`);
+      writeHistory(`Player ${player} Lost. Titan took a hit`);
     }
     pieces.forEach((p) => {
       p.onclick = null;
