@@ -1,5 +1,6 @@
 import handleMovePiece from "./handleMovePiece.js";
 import handleRotate from "./handleRotate.js";
+import handleSwap from "./handleSwap.js";
 
 export default function handlePieceSelect(pieceElement) {
   const validDest = [];
@@ -52,7 +53,9 @@ export default function handlePieceSelect(pieceElement) {
     if (pieceElement.type === "Ricochet") {
       const swapButton = document.createElement("div");
       swapButton.classList.add("btn");
-      swapButton.onClick = () => {};
+      swapButton.onclick = () => {
+        handleSwap(pieceElement);
+      };
       swapButton.innerHTML = "<img src='Assets/Swap.png' class='btnimg'/>";
       controlls.appendChild(swapButton);
     }
