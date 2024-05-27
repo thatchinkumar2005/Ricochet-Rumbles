@@ -36,7 +36,6 @@ body {
   @media only screen and (max-width: 730px) {
     height: calc(8 * 40px);
     width: calc(8 * 40px);
-    margin-top: 10vh;
   }
   flex-grow: 0;
 }
@@ -52,6 +51,7 @@ body {
   @media only screen and (max-width: 730px) {
     flex-direction: column;
     align-items: center;
+    height: 75%;
   }
 }
 
@@ -136,6 +136,10 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  @media only screen and (max-width: 730px) {
+    flex-direction: column;
+    gap: 0px;
+  }
 }
 #timer {
   color: beige;
@@ -143,7 +147,7 @@ body {
   margin-top: 8px;
 }
 .turnCard {
-  color: white;
+  color: orange;
 }
 
 .validDest {

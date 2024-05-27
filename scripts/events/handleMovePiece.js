@@ -1,4 +1,3 @@
-import { Ricochet } from "../Globals/RicochetOrientation.js";
 import moveBullet from "../render/Bullet.js";
 import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
