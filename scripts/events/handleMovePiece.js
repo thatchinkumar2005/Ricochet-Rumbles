@@ -3,6 +3,7 @@ import moveBullet from "../render/Bullet.js";
 import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
+import pieceHover from "./pieceHover.js";
 
 export default async function handleMovePiece(
   piece,
@@ -23,6 +24,12 @@ export default async function handleMovePiece(
       "data-row"
     )}, ${piece.parentElement.getAttribute("data-col")})`
   );
+  //audio
+  const placePieceAudio = document.querySelector("#swapAudio");
+  placePieceAudio.pause();
+  placePieceAudio.currentTime = 0;
+  placePieceAudio.play();
+
   //history
   //if i is the turn, then ith index in gamehistory represents board pieces position after ith turn player moves. i is even => player 2, i is odd => player 1
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
@@ -168,6 +175,11 @@ export default async function handleMovePiece(
   prevDest.forEach((dest) => {
     dest.onclick = null;
     dest.classList.remove("validDest");
+  });
+
+  const allPieces = document.querySelectorAll(".piece");
+  allPieces.forEach((p) => {
+    p.removeEventListener("mouseenter", pieceHover);
   });
 
   //Bullet mech

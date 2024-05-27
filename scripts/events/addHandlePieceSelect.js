@@ -16,8 +16,6 @@ export default function addHandlePieceSelect(
   );
   const pieces = document.querySelectorAll(".piece");
   const pause = document.querySelector("#pause");
-  //turn card
-  //timer
 
   if (!gameOver) {
     //timer
@@ -58,11 +56,6 @@ export default function addHandlePieceSelect(
       };
       p.addEventListener("mouseenter", pieceHover); //audio on hover event
       p.classList.add("turn");
-    });
-    otherPieces.forEach((p) => {
-      p.onclick = null;
-      p.classList.remove("turn");
-      p.removeEventListener("mouseenter", pieceHover);
     });
   } else {
     const turnCard = document.querySelector(".turnCard");
