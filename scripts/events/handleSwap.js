@@ -3,6 +3,10 @@ import handleMovePiece from "./handleMovePiece.js";
 export default function handleSwap(piece) {
   const pieces = Array.from(document.querySelectorAll(".piece"));
   const prevValidDest = document.querySelectorAll(".validDest");
+  const swapAudio = document.querySelector("#swapAudio");
+  swapAudio.pause();
+  swapAudio.currenTime = 0;
+  swapAudio.play();
   prevValidDest.forEach((d) => {
     d.onclick = null;
     d.classList.remove("validDest");

@@ -4,6 +4,10 @@ import handlePause from "./events/handlePause.js";
 
 export default function gameInit(initialPlayer, gameOver) {
   if (!gameOver) {
+    const gameStartAudio = document.querySelector("#gameStartAudio");
+    gameStartAudio.pause();
+    gameStartAudio.currentTime = 0;
+    gameStartAudio.play();
     addHandlePieceSelect(initialPlayer, gameOver);
 
     const restartButton = document.querySelector("#restart");
