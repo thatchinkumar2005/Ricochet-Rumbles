@@ -8,3 +8,5 @@ export const players = [
     pieces: ["Titan", "Tank", "Ricochet", "SemiRicochet", "Cannon"],
   },
 ];
+
+export const pieces = ["Titan", "Tank", "Ricochet", "SemiRicochet", "Cannon"];

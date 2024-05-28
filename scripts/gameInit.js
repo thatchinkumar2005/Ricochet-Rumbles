@@ -1,3 +1,4 @@
+import { players } from "./Globals/players.js";
 import addHandlePieceSelect from "./events/addHandlePieceSelect.js";
 import handleDos from "./events/handleDos.js";
 import handlePause from "./events/handlePause.js";
@@ -9,6 +10,8 @@ export default function gameInit(initialPlayer, gameOver) {
     gameStartAudio.currentTime = 0;
     gameStartAudio.play();
     addHandlePieceSelect(initialPlayer, gameOver);
+
+    localStorage.setItem("players", JSON.stringify(players));
 
     const restartButton = document.querySelector("#restart");
     restartButton.addEventListener("click", () => {

@@ -1,7 +1,7 @@
 import moveBullet from "../render/Bullet.js";
 import writeHistory from "../render/writeHistory.js";
 
-export default async function handleCollision(piece) {
+export default async function handleCollision(piece, replay) {
   let gameOver = false,
     absorbed = false,
     ricochet = false,
@@ -86,7 +86,8 @@ export default async function handleCollision(piece) {
           ricochet = false;
           semiRicochetBroken = true;
           console.log("Semiricochet broken");
-          writeHistory(`player${piece.player} lost their Semi Ricochet`);
+          if (replay)
+            writeHistory(`player${piece.player} lost their Semi Ricochet`);
           piece.remove();
           const semiRicochetBreakAudio = document.querySelector(
             "#semiRicochetBreakAudio"
@@ -94,6 +95,11 @@ export default async function handleCollision(piece) {
           semiRicochetBreakAudio.pause();
           semiRicochetBreakAudio.currentTime = 0;
           semiRicochetBreakAudio.play();
+          const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+          delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
+            "SemiRicochet"
+          ];
+          localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
           return { gameOver, absorbed, ricochet, semiRicochetBroken };
       }
 

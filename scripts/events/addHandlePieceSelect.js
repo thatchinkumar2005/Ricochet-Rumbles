@@ -90,6 +90,12 @@ export default function addHandlePieceSelect(
     restart.onclick = () => {
       document.location.reload();
     };
+    const replay = document.querySelector("#replayGameOver");
+    replay.innerHTML = "Replay";
+    replay.classList.add("restart");
+    replay.onclick = () => {
+      document.location.replace("http://127.0.0.1:5500/replay.html");
+    };
     if (dests) {
       console.log(dests);
       Array.from(dests).forEach((d) => {

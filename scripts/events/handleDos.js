@@ -19,60 +19,62 @@ export default function handleDos(do_) {
       const player = structuredClone(round[`player${i + 1}`]);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (p === "Ricochet" || p === "SemiRicochet") {
-          console.log(p);
-          const newCell = document.querySelector(
-            `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
-          );
-          let piece = document.querySelector(`.${p}.player${i + 1}`);
-          if (!piece) {
-            piece = document.createElement("div");
-            piece.type = p;
-            piece.player = i + 1;
-            piece.classList.add("piece", p, `player${i + 1}`);
+        if (player.hasOwnProperty(p)) {
+          if (p === "Ricochet" || p === "SemiRicochet") {
+            console.log(p);
+            const newCell = document.querySelector(
+              `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
+            );
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            if (!piece) {
+              piece = document.createElement("div");
+              piece.type = p;
+              piece.player = i + 1;
+              piece.classList.add("piece", p, `player${i + 1}`);
+              newCell.append(piece);
+            }
+            piece.orientation = player[p].orientation;
+            if (piece.type === "Ricochet") {
+              switch (piece.orientation) {
+                case Ricochet.type1:
+                  piece.style.transform = "rotate(0deg)";
+                  break;
+                case Ricochet.type2:
+                  piece.style.transform = "rotate(90deg)";
+                  break;
+              }
+            } else if (piece.type === "SemiRicochet") {
+              switch (piece.orientation) {
+                case SemiRicochet.type1:
+                  piece.style.transform = "rotate(0deg)";
+                  break;
+                case SemiRicochet.type2:
+                  piece.style.transform = "rotate(90deg)";
+                  break;
+                case SemiRicochet.type3:
+                  piece.style.transform = "rotate(180deg)";
+                  break;
+                case SemiRicochet.type4:
+                  piece.style.transform = "rotate(270deg)";
+                  break;
+              }
+            }
+            !player_ && piece.classList.contains("turn") //figuring the player out
+              ? (player_ = i + 1 === 1 ? 2 : 1)
+              : null;
+            console.log(piece);
+            piece.remove();
+            newCell.append(piece);
+          } else {
+            console.log(p);
+            const newCell = document.querySelector(
+              `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
+            );
+            const piece = document.querySelector(`.${p}.player${i + 1}`);
+            console.log(piece);
+            piece.remove();
             newCell.append(piece);
           }
-          piece.orientation = player[p].orientation;
-          if (piece.type === "Ricochet") {
-            switch (piece.orientation) {
-              case Ricochet.type1:
-                piece.style.transform = "rotate(0deg)";
-                break;
-              case Ricochet.type2:
-                piece.style.transform = "rotate(90deg)";
-                break;
-            }
-          } else if (piece.type === "SemiRicochet") {
-            switch (piece.orientation) {
-              case SemiRicochet.type1:
-                piece.style.transform = "rotate(0deg)";
-                break;
-              case SemiRicochet.type2:
-                piece.style.transform = "rotate(90deg)";
-                break;
-              case SemiRicochet.type3:
-                piece.style.transform = "rotate(180deg)";
-                break;
-              case SemiRicochet.type4:
-                piece.style.transform = "rotate(270deg)";
-                break;
-            }
-          }
-          !player_ && piece.classList.contains("turn") //figuring the player out
-            ? (player_ = i + 1 === 1 ? 2 : 1)
-            : null;
-          console.log(piece);
-          piece.remove();
-          newCell.append(piece);
-        } else {
-          console.log(p);
-          const newCell = document.querySelector(
-            `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
-          );
-          const piece = document.querySelector(`.${p}.player${i + 1}`);
-          console.log(piece);
-          piece.remove();
-          newCell.append(piece);
         }
       });
     }
@@ -92,62 +94,65 @@ export default function handleDos(do_) {
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
+      console.log(player);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (p === "Ricochet" || p === "SemiRicochet") {
-          console.log(p);
-          const newCell = document.querySelector(
-            `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
-          );
-          let piece = document.querySelector(`.${p}.player${i + 1}`);
-          if (!piece) {
-            piece = document.createElement("div");
-            piece.type = p;
-            piece.player = i + 1;
-            piece.classList.add("piece", p, `player${i + 1}`);
+        if (player.hasOwnProperty(p)) {
+          if (p === "Ricochet" || p === "SemiRicochet") {
+            console.log(p);
+            const newCell = document.querySelector(
+              `[data-row='${player[p].location[0]}'][data-col='${player[p].location[1]}']`
+            );
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            if (!piece) {
+              // piece = document.createElement("div");
+              // piece.type = p;
+              // piece.player = i + 1;
+              // piece.classList.add("piece", p, `player${i + 1}`);
+              // newCell.append(piece);
+            }
+            piece.orientation = player[p].orientation;
+            if (piece.type === "Ricochet") {
+              switch (piece.orientation) {
+                case Ricochet.type1:
+                  piece.style.transform = "rotate(0deg)";
+                  break;
+                case Ricochet.type2:
+                  piece.style.transform = "rotate(90deg)";
+                  break;
+              }
+            } else if (piece.type === "SemiRicochet") {
+              switch (piece.orientation) {
+                case SemiRicochet.type1:
+                  piece.style.transform = "rotate(0deg)";
+                  break;
+                case SemiRicochet.type2:
+                  piece.style.transform = "rotate(90deg)";
+                  break;
+                case SemiRicochet.type3:
+                  piece.style.transform = "rotate(180deg)";
+                  break;
+                case SemiRicochet.type4:
+                  piece.style.transform = "rotate(270deg)";
+                  break;
+              }
+            }
+            !player_ && piece.classList.contains("turn") //figuring the player out
+              ? (player_ = i + 1 === 1 ? 2 : 1)
+              : null;
+            console.log(piece);
+            piece.remove();
+            newCell.append(piece);
+          } else {
+            console.log(p);
+            const newCell = document.querySelector(
+              `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
+            );
+            const piece = document.querySelector(`.${p}.player${i + 1}`);
+            console.log(piece);
+            piece.remove();
             newCell.append(piece);
           }
-          piece.orientation = player[p].orientation;
-          if (piece.type === "Ricochet") {
-            switch (piece.orientation) {
-              case Ricochet.type1:
-                piece.style.transform = "rotate(0deg)";
-                break;
-              case Ricochet.type2:
-                piece.style.transform = "rotate(90deg)";
-                break;
-            }
-          } else if (piece.type === "SemiRicochet") {
-            switch (piece.orientation) {
-              case SemiRicochet.type1:
-                piece.style.transform = "rotate(0deg)";
-                break;
-              case SemiRicochet.type2:
-                piece.style.transform = "rotate(90deg)";
-                break;
-              case SemiRicochet.type3:
-                piece.style.transform = "rotate(180deg)";
-                break;
-              case SemiRicochet.type4:
-                piece.style.transform = "rotate(270deg)";
-                break;
-            }
-          }
-          !player_ && piece.classList.contains("turn") //figuring the player out
-            ? (player_ = i + 1 === 1 ? 2 : 1)
-            : null;
-          console.log(piece);
-          piece.remove();
-          newCell.append(piece);
-        } else {
-          console.log(p);
-          const newCell = document.querySelector(
-            `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
-          );
-          const piece = document.querySelector(`.${p}.player${i + 1}`);
-          console.log(piece);
-          piece.remove();
-          newCell.append(piece);
         }
       });
     }

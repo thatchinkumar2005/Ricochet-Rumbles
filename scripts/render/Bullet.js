@@ -1,7 +1,12 @@
 import { settings } from "../Globals/settings.js";
 import handleCollision from "../events/handleCollision.js";
 
-export default async function moveBullet(dir, srcLocation, player) {
+export default async function moveBullet(
+  dir,
+  srcLocation,
+  player,
+  replay = false
+) {
   let ricochet = false;
   let absorbed = false;
   let gameOver = false;
@@ -92,7 +97,7 @@ export default async function moveBullet(dir, srcLocation, player) {
     );
     newCell.appendChild(bullet);
     if (newCell.firstElementChild?.classList.contains("piece")) {
-      let data = await handleCollision(newCell.firstChild);
+      let data = await handleCollision(newCell.firstChild, replay);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
