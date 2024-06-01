@@ -28,5 +28,15 @@ export default function gameInit(initialPlayer, gameOver) {
       handleDos("redo");
     });
     localStorage.setItem("doIndex", 0);
+
+    const settings = JSON.parse(localStorage.getItem("settings"));
+    if (!settings.spells) {
+      const spells = document.querySelector(".spells");
+      spells.style.setProperty("visibility", "hidden");
+    }
+    if (!settings.history) {
+      const history = document.querySelector(".spells");
+      history.style.setProperty("visibility", "hidden");
+    }
   }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Styles/settings.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>home page</title>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form">
+        <div class="formField">
+          <p class="label">Time in min:</p>
+          <input type="text" name="time" />
+        </div>
+        <div class="formField">
+          <p class="label">Bullet Speed:</p>
+          <input type="text" name="speed" />
+        </div>
+        <div class="formField">
+          <p class="label">Show History:</p>
+          <input type="checkbox" name="history" class="checkbox" />
+        </div>
+        <div class="formField">
+          <p class="label">Spells:</p>
+          <input type="checkbox" name="spells" class="checkbox" />
+        </div>
+        <button type="button" class="button">Start</button>
+      </form>
+    </div>
+    <script src="./scripts/forms/settings.js" type="module" charset="UTF-8" />
+  </body>
+</html>

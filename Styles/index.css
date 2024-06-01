@@ -300,3 +300,20 @@ body {
     border-color: grey;
   }
 }
+
+.spells {
+  display: flex;
+  height: 95%;
+  width: 10%;
+  background: transparent;
+  flex-grow: 0;
+  border-radius: 20px;
+  border: skyblue solid 2px;
+  backdrop-filter: blur(10px);
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 730px) {
+    width: 80%;
+  }
+  overflow: scroll;
+}
