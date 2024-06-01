@@ -14,8 +14,8 @@ button.addEventListener("click", () => {
   localStorage.setItem(
     "settings",
     JSON.stringify({
-      timeDuration: Number(form.elements.namedItem("time").value),
-      bulletSpeed: 750 / form.elements.namedItem("time").value,
+      timerDuration: Number(form.elements.namedItem("time").value),
+      bulletSpeed: 750 / Number(form.elements.namedItem("speed").value),
       spells: form.elements.namedItem("spells").checked,
       history: form.elements.namedItem("history").checked,
     })

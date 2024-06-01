@@ -31,12 +31,13 @@ body {
 
 input {
   outline: none;
-  border: 2px solid beige;
+  border: 2px solid black;
   width: 10%;
   height: 30px;
   background: transparent;
   border-radius: 5px;
   padding: 2px;
+  color: beige;
 }
 
 .formField {

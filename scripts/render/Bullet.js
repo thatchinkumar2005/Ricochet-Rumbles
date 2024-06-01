@@ -11,6 +11,8 @@ export default async function moveBullet(
   let absorbed = false;
   let gameOver = false;
   let semiRicochetBroken = false;
+  let { bulletSpeed } = JSON.parse(localStorage.getItem("settings"));
+  bulletSpeed = Number(bulletSpeed);
 
   const playerPieces = document.querySelectorAll(`.piece.player${player}`);
   playerPieces.forEach((p) => {
@@ -75,14 +77,14 @@ export default async function moveBullet(
   let currentLocation = initialLocation;
   let outOfBound = currentLocation[path] > 7 || currentLocation[path] < 0;
   if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-    await sleep(settings.bulletSpeed);
+    await sleep(bulletSpeed);
     const bullet = document.querySelector(".bullet");
     if (bullet) bullet.remove();
   }
 
   while (!(gameOver || absorbed || ricochet || semiRicochetBroken)) {
     //loop to move the bullet
-    await sleep(settings.bulletSpeed);
+    await sleep(bulletSpeed);
     // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
     if (pathAction === "add") {
       currentLocation[path]++;
@@ -105,12 +107,12 @@ export default async function moveBullet(
       console.log(data);
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-      await sleep(settings.bulletSpeed);
+      await sleep(bulletSpeed);
       console.log(true);
       const bullet = document.querySelector(".bullet");
       if (bullet) bullet.remove();
     }
-    await sleep(settings.bulletSpeed / 2);
+    await sleep(bulletSpeed / 2);
   }
   return gameOver;
 }

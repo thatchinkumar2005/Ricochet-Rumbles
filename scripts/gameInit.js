@@ -31,11 +31,10 @@ export default function gameInit(initialPlayer, gameOver) {
 
     const { history, spells } = JSON.parse(localStorage.getItem("settings"));
     if (!spells) {
-      document.querySelector(".spells").style.visbility = "hidden";
+      document.querySelector(".spells").remove();
     }
     if (!history) {
-      console.log("kadgkjhas");
-      document.querySelector(".history").style.visbility = "hidden";
+      document.querySelector(".history").remove();
     }
   }
 }

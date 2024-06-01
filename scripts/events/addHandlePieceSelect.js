@@ -1,4 +1,3 @@
-import { settings } from "../Globals/settings.js";
 import { pieces as Pieces } from "../Globals/players.js";
 import writeHistory from "../render/writeHistory.js";
 import handlePause from "./handlePause.js";
@@ -11,6 +10,8 @@ export default function addHandlePieceSelect(
   timeUp = false,
   setTimer = true
 ) {
+  const settings = JSON.parse(localStorage.getItem("settings"));
+  console.log(settings);
   const isBot = localStorage.getItem("bot");
 
   const playerPieces = document.querySelectorAll(`.piece.player${player}`);
@@ -23,7 +24,8 @@ export default function addHandlePieceSelect(
   if (!gameOver) {
     //timer
     if (setTimer) {
-      let time = settings.timerDuration;
+      let time = settings.timerDuration * 60000;
+      console.log(time);
       const timer = document.querySelector("#timer");
       const interval = setInterval(() => {
         time = time - 1000;
