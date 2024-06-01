@@ -10,6 +10,6 @@ placePieces();
 const turnCard = document.querySelector(".turnCard");
 turnCard.innerHTML = `Player ${initialPlayer}'s turn`;
 
-localStorage.setItem("bot", 0);
+localStorage.setItem("bot", 1);
 
 gameInit(initialPlayer, gameOver);

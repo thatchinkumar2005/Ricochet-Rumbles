@@ -1,0 +1,49 @@
+body {
+  background-color: black;
+  font-family: "Goldman", sans-serif;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+  background-image: url("../Assets/Background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 30vh;
+  width: 50%;
+  backdrop-filter: saturate(180%) blur(8px);
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  height: 50px;
+  width: 150px;
+  background-color: beige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  transition: 250ms all;
+  &:hover {
+    transform: scale(1.1);
+    background: transparent;
+    color: beige;
+    border: beige solid 2px;
+  }
+}

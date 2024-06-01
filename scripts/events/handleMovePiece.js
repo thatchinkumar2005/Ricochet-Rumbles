@@ -198,5 +198,12 @@ export default async function handleMovePiece(
   let gameOver = await moveBullet(dir, cannonLocation, piece.player);
   console.log(gameOver);
 
-  addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
+  const isBot = localStorage.getItem("bot");
+  if (piece.player !== 1 && isBot == 1) {
+    setTimeout(() => {
+      addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
+    }, 1000);
+  } else {
+    addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call
+  }
 }

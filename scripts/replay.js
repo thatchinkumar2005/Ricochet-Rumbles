@@ -68,7 +68,7 @@ async function replay() {
       replay.innerHTML = "New Game";
       replay.classList.add("restart");
       replay.onclick = () => {
-        document.location.replace("http://127.0.0.1:5500/index.html");
+        document.location.replace("/index.html");
       };
     }
   }

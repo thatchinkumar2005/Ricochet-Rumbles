@@ -1,4 +1,5 @@
 import { settings } from "../Globals/settings.js";
+import { pieces as Pieces } from "../Globals/players.js";
 import writeHistory from "../render/writeHistory.js";
 import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
@@ -94,7 +95,7 @@ export default function addHandlePieceSelect(
     replay.innerHTML = "Replay";
     replay.classList.add("restart");
     replay.onclick = () => {
-      document.location.replace("http://127.0.0.1:5500/replay.html");
+      document.location.replace("/replay.html");
     };
     if (dests) {
       console.log(dests);
@@ -104,5 +105,17 @@ export default function addHandlePieceSelect(
       });
     }
     controlls.innerHTML = "";
+  }
+
+  //bot
+  const isBot = localStorage.getItem("bot");
+  if (player === 1 && isBot == 1) {
+    console.log("hello");
+    const randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];
+    console.log(randomPiece);
+    const piece = document.querySelector(`.player1.${randomPiece}`);
+    piece.click();
+
+    pieces.forEach((p) => (p.onclick = null));
   }
 }
