@@ -137,9 +137,15 @@ export default function addHandlePieceSelect(
   //bot
   if (player === 1 && isBot == 1) {
     console.log("hello");
-    const randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];
+    let randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];
     console.log(randomPiece);
-    const piece = document.querySelector(`.player1.${randomPiece}`);
+    let piece = document.querySelector(`.player1.${randomPiece}`);
+    if (!piece) {
+      let randomPiece = Pieces.splice(Pieces.indexOf(randomPiece), 1)[
+        Math.round(Math.random() * (Pieces.length - 1))
+      ];
+      let piece = document.querySelector(`.player1.${randomPiece}`);
+    }
     piece.click();
 
     pieces.forEach((p) => (p.onclick = null));

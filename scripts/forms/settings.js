@@ -7,7 +7,8 @@ form.elements.namedItem("speed").defaultValue = 5;
 
 const button = document.querySelector("button");
 const queries = new URLSearchParams(document.location.search);
-const mode = queries.mode;
+const mode = queries.get("mode");
+console.log(mode);
 
 button.addEventListener("click", () => {
   localStorage.setItem(
@@ -19,7 +20,9 @@ button.addEventListener("click", () => {
       history: form.elements.namedItem("history").checked,
     })
   );
-  document.location.replace(
-    `${mode === "2player" ? "/twoPlayer.html" : "/bot.html"}`
-  );
+  if (mode == "2player") {
+    document.location.replace("/twoPlayer.html");
+  } else if (mode == "bot") {
+    document.location.replace("/bot.html");
+  }
 });
