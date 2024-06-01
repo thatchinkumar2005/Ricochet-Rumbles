@@ -1,8 +1,8 @@
 body {
   background-color: black;
   font-family: "Goldman", sans-serif;
+  font-size: 20px;
 }
-
 .container {
   height: 100vh;
   width: 100%;
@@ -17,34 +17,49 @@ body {
   background-position: center;
 }
 
-.menu {
+.form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   gap: 20px;
-  height: 40vh;
+  height: 50vh;
   width: 40%;
   backdrop-filter: saturate(180%) blur(8px);
   border-radius: 20px;
 }
 
-.menu-item a {
-  text-decoration: none;
-  color: black;
-  font-size: 20px;
-  height: 50px;
-  width: 150px;
-  background-color: beige;
+input {
+  outline: none;
+  border: 2px solid beige;
+  width: 10%;
+  height: 30px;
+  background: transparent;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.formField {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+.button {
+  justify-self: center;
+  align-self: center;
+  height: 40px;
+  width: 80px;
+  background-color: beige;
+  outline: none;
+  border: 2px solid beige;
   border-radius: 20px;
   transition: 250ms all;
   &:hover {
-    transform: scale(1.05);
     background: transparent;
+    border: beige 2px solid;
     color: beige;
-    border: beige solid 2px;
   }
 }
