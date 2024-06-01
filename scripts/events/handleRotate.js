@@ -5,6 +5,7 @@ import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
 
 export default async function handleRotate(piece, dir) {
+  const isBot = localStorage.getItem("bot");
   let gameOver = false;
   // if (!piece.style.transform) {
   //   if (dir === "left") {
@@ -18,7 +19,15 @@ export default async function handleRotate(piece, dir) {
   //   const newAngle = prevAngle + (dir === "left" ? -90 : 90);
   //   piece.style.transform = `rotate(${newAngle}deg)`.toString();
   // }
-  writeHistory(`Player${piece.player} rotated his ${piece.type} ${dir}`);
+  if (isBot) {
+    if (piece.player === 1) {
+      writeHistory(`Bot rotated ${piece.type} ${dir}`);
+    } else {
+      writeHistory(`Player rotated ${piece.type} ${dir}`);
+    }
+  } else {
+    writeHistory(`Player${piece.player} rotated his ${piece.type} ${dir}`);
+  }
   //gameHistory
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
   const doIndex = localStorage.getItem("doIndex");

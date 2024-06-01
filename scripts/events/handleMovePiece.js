@@ -10,19 +10,53 @@ export default async function handleMovePiece(
   player,
   swap = false
 ) {
-  writeHistory(
-    ` ${player} ${swap ? "swapped" : "moved"} ${piece.type} to (${
-      swap
-        ? newCell.parentElement.getAttribute("data-row")
-        : newCell.getAttribute("data-row")
-    }, ${
-      swap
-        ? newCell.parentElement.getAttribute("data-col")
-        : newCell.getAttribute("data-col")
-    }}) from (${piece.parentElement.getAttribute(
-      "data-row"
-    )}, ${piece.parentElement.getAttribute("data-col")})`
-  );
+  const isBot = localStorage.getItem("bot");
+
+  if (isBot == 1) {
+    if (player === "player1") {
+      writeHistory(
+        ` Bot ${swap ? "swapped" : "moved"} ${piece.type} to (${
+          swap
+            ? newCell.parentElement.getAttribute("data-row")
+            : newCell.getAttribute("data-row")
+        }, ${
+          swap
+            ? newCell.parentElement.getAttribute("data-col")
+            : newCell.getAttribute("data-col")
+        }) from (${piece.parentElement.getAttribute(
+          "data-row"
+        )}, ${piece.parentElement.getAttribute("data-col")})`
+      );
+    } else {
+      writeHistory(
+        ` Player ${swap ? "swapped" : "moved"} ${piece.type} to (${
+          swap
+            ? newCell.parentElement.getAttribute("data-row")
+            : newCell.getAttribute("data-row")
+        }, ${
+          swap
+            ? newCell.parentElement.getAttribute("data-col")
+            : newCell.getAttribute("data-col")
+        }) from (${piece.parentElement.getAttribute(
+          "data-row"
+        )}, ${piece.parentElement.getAttribute("data-col")})`
+      );
+    }
+  } else {
+    writeHistory(
+      `Player ${player} ${swap ? "swapped" : "moved"} ${piece.type} to (${
+        swap
+          ? newCell.parentElement.getAttribute("data-row")
+          : newCell.getAttribute("data-row")
+      }, ${
+        swap
+          ? newCell.parentElement.getAttribute("data-col")
+          : newCell.getAttribute("data-col")
+      }) from (${piece.parentElement.getAttribute(
+        "data-row"
+      )}, ${piece.parentElement.getAttribute("data-col")})`
+    );
+  }
   //audio
   const placePieceAudio = document.querySelector("#swapAudio");
   placePieceAudio.pause();
@@ -198,7 +232,6 @@ export default async function handleMovePiece(
   let gameOver = await moveBullet(dir, cannonLocation, piece.player);
   console.log(gameOver);
 
-  const isBot = localStorage.getItem("bot");
   if (piece.player !== 1 && isBot == 1) {
     setTimeout(() => {
       addHandlePieceSelect(player === "player1" ? 2 : 1, gameOver); //recursive call

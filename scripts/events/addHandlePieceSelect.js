@@ -11,6 +11,8 @@ export default function addHandlePieceSelect(
   timeUp = false,
   setTimer = true
 ) {
+  const isBot = localStorage.getItem("bot");
+
   const playerPieces = document.querySelectorAll(`.piece.player${player}`);
   const otherPieces = document.querySelectorAll(
     `.piece.player${player === 1 ? 2 : 1}`
@@ -46,8 +48,13 @@ export default function addHandlePieceSelect(
     }
 
     //turn Card
-    const turnCard = document.querySelector(".turnCard");
-    turnCard.innerHTML = `Player ${player}'s turn`;
+    if (isBot == 1) {
+      const turnCard = document.querySelector(".turnCard");
+      turnCard.innerHTML = `${player == 1 ? "Bot's" : "Player's"} turn`;
+    } else {
+      const turnCard = document.querySelector(".turnCard");
+      turnCard.innerHTML = `Player ${player}'s turn`;
+    }
 
     //events
     pause.addEventListener("click", handlePause);
@@ -71,11 +78,31 @@ export default function addHandlePieceSelect(
     alert("gameOver");
     if (timeUp) {
       console.log("hello");
-      turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
-      writeHistory(`Player ${player === 1 ? 2 : 1} Lost by losing Time`);
+      if (isBot == 1) {
+        if (player == 2) {
+          writeHistory(`Bot Lost by losing Time`);
+          turnCard.innerHTML = `Bot Lost`;
+        } else {
+          writeHistory(`Player Lost by losing Time`);
+          turnCard.innerHTML = `Player Lost`;
+        }
+      } else {
+        writeHistory(`Player ${player === 1 ? 2 : 1} Lost by losing Time`);
+        turnCard.innerHTML = `Player ${player === 1 ? 2 : 1} Lost`;
+      }
     } else {
-      turnCard.innerHTML = `Player ${player} Lost`;
-      writeHistory(`Player ${player} Lost. Titan took a hit`);
+      if (isBot == 1) {
+        if (player == 1) {
+          writeHistory(`Bot Lost. Titan took a hit.`);
+          turnCard.innerHTML = `Bot Lost.`;
+        } else {
+          writeHistory(`Player Lost. Titan took a hit.`);
+          turnCard.innerHTML = `Player Lost.`;
+        }
+      } else {
+        writeHistory(`Player ${player} Lost. Titan took a hit.`);
+        turnCard.innerHTML = `Player ${player} Lost.`;
+      }
     }
     pieces.forEach((p) => {
       p.onclick = null;
@@ -108,7 +135,6 @@ export default function addHandlePieceSelect(
   }
 
   //bot
-  const isBot = localStorage.getItem("bot");
   if (player === 1 && isBot == 1) {
     console.log("hello");
     const randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];

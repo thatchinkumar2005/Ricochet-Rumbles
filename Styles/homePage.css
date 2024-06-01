@@ -23,9 +23,10 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  height: 30vh;
-  width: 50%;
+  height: 40vh;
+  width: 30%;
   backdrop-filter: saturate(180%) blur(8px);
+  border-radius: 20px;
 }
 
 .menu-item a {
