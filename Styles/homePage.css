@@ -42,7 +42,7 @@ body {
   border-radius: 20px;
   transition: 250ms all;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     background: transparent;
     color: beige;
     border: beige solid 2px;
