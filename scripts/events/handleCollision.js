@@ -12,8 +12,8 @@ export default async function handleCollision(piece, replay) {
   collisionAudio.currentTime = 0;
   collisionAudio.play();
 
-  const spellHistory = JSON.parse(localStorage.getItem("spellHistory"));
-  const round = structuredClone(spellHistory[spellHistory.length - 1]);
+  const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+  const round = structuredClone(gameHistory[gameHistory.length - 1]);
 
   if (piece.spell) {
     console.log(piece.spell);
@@ -22,8 +22,7 @@ export default async function handleCollision(piece, replay) {
 
       piece.spell = null;
       piece.classList.remove("goThruAnimate");
-      round[`player${piece.player}`][piece.type] = null;
-      spellHistory.push(round);
+      round.pieceSpells[`player${piece.player}`][piece.type] = null;
       localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     } else if (piece.spell === "destroy") {
@@ -41,9 +40,6 @@ export default async function handleCollision(piece, replay) {
       semiRicochetBreakAudio.currentTime = 0;
       semiRicochetBreakAudio.play();
       piece.classList.remove("destroyAnimate");
-      round[`player${piece.player}`][piece.type] = null;
-      spellHistory.push(round);
-      localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     } else if (piece.spell === "shield") {
       absorbed = true;

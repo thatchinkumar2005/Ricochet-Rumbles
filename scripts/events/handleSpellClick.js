@@ -46,10 +46,6 @@ export default async function handleSpellClick(e) {
   clickAudio.play();
 
   const isBot = localStorage.getItem("bot");
-
-  const spellHistory = JSON.parse(localStorage.getItem("spellHistory"));
-  const prevSpellRound = spellHistory[spellHistory.length - 1];
-  const newSpellRound = structuredClone(prevSpellRound);
   const history = JSON.parse(localStorage.getItem("gameHistory"));
   const prevRound = history[history.length - 1];
   const newRound = structuredClone(prevRound);
@@ -81,16 +77,25 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type; //apply spell
+          spells = JSON.parse(localStorage.getItem("spells"));
+          spells[`player${e.srcElement.player}`].splice(
+            spells[`player${e.srcElement.player}`].indexOf(spell.type),
+            1
+          );
+          localStorage.setItem("spells", JSON.stringify(spells));
+          newRound.spells = spells;
+          newRound.pieceSpells[`player${spell.player}`][p.type] = spell.type;
+          console.log(newRound);
+          history.push(newRound);
+          console.log(history);
+          localStorage.setItem("gameHistory", JSON.stringify(history));
+          console.log(newRound);
           e.srcElement.classList.remove(
             "goThruAnimate",
             "destroyAnimate",
             "shieldAnimate"
           );
           p.classList.add("goThruAnimate");
-          newSpellRound[`player${spell.player}`][p.type] = spell.type;
-          spellHistory.push(newSpellRound);
-          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
-          console.log(spellHistory);
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
@@ -106,19 +111,8 @@ export default async function handleSpellClick(e) {
         };
       });
 
-      //spells LS
-      spells = JSON.parse(localStorage.getItem("spells"));
-      spells[`player${e.srcElement.player}`].splice(
-        spells[`player${e.srcElement.player}`].indexOf(spell.type),
-        1
-      );
-      localStorage.setItem("spells", JSON.stringify(spells));
-      newRound.spells = spells;
-      console.log(newRound);
-      history.push(newRound);
-      console.log(history);
-      localStorage.setItem("gameHistory", JSON.stringify(history));
       break;
+
     case "destroy":
       pieces = document.querySelectorAll(".piece");
       console.log("destroy");
@@ -146,15 +140,25 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type;
+          spells = JSON.parse(localStorage.getItem("spells"));
+          spells[`player${e.srcElement.player}`].splice(
+            spells[`player${e.srcElement.player}`].indexOf(spell.type),
+            1
+          );
+          localStorage.setItem("spells", JSON.stringify(spells));
+          newRound.spells = spells;
+          newRound.pieceSpells[`player${spell.player}`][p.type] = spell.type;
+          console.log(newRound);
+          history.push(newRound);
+          console.log(history);
+          localStorage.setItem("gameHistory", JSON.stringify(history));
+          console.log(newRound);
           p.classList.remove(
             "goThruAnimate",
             "destroyAnimate",
             "shieldAnimate"
           );
           p.classList.add("destroyAnimate");
-          newSpellRound[`player${spell.player}`][p.type] = spell.type;
-          spellHistory.push(newSpellRound);
-          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
@@ -169,18 +173,8 @@ export default async function handleSpellClick(e) {
           console.log(gameOver);
         };
       });
-      spells = JSON.parse(localStorage.getItem("spells"));
-      spells[`player${e.srcElement.player}`].splice(
-        spells[`player${e.srcElement.player}`].indexOf(spell.type),
-        1
-      );
-      localStorage.setItem("spells", JSON.stringify(spells));
-      newRound.spells = spells;
-      console.log(newRound);
-      history.push(newRound);
-      console.log(history);
-      localStorage.setItem("gameHistory", JSON.stringify(history));
       break;
+
     case "shield":
       pieces = document.querySelectorAll(".piece");
       console.log("shield");
@@ -207,15 +201,25 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type;
+          spells = JSON.parse(localStorage.getItem("spells"));
+          spells[`player${e.srcElement.player}`].splice(
+            spells[`player${e.srcElement.player}`].indexOf(spell.type),
+            1
+          );
+          localStorage.setItem("spells", JSON.stringify(spells));
+          newRound.spells = spells;
+          newRound.pieceSpells[`player${spell.player}`][p.type] = spell.type;
+          console.log(newRound);
+          history.push(newRound);
+          console.log(history);
+          localStorage.setItem("gameHistory", JSON.stringify(history));
+          console.log(newRound);
           p.classList.remove(
             "goThruAnimate",
             "destroyAnimate",
             "shieldAnimate"
           );
           p.classList.add("shieldAnimate");
-          newSpellRound[`player${spell.player}`][p.type] = spell.type;
-          spellHistory.push(newSpellRound);
-          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
@@ -230,17 +234,6 @@ export default async function handleSpellClick(e) {
           console.log(gameOver);
         };
       });
-      spells = JSON.parse(localStorage.getItem("spells"));
-      spells[`player${e.srcElement.player}`].splice(
-        spells[`player${e.srcElement.player}`].indexOf(spell.type),
-        1
-      );
-      localStorage.setItem("spells", JSON.stringify(spells));
-      newRound.spells = spells;
-      console.log(newRound);
-      history.push(newRound);
-      console.log(history);
-      localStorage.setItem("gameHistory", JSON.stringify(history));
 
       break;
   }

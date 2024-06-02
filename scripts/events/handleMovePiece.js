@@ -80,6 +80,8 @@ export default async function handleMovePiece(
     const player2 = structuredClone(prevRound.player2);
     const player1 = structuredClone(prevRound.player1);
     const spells = structuredClone(prevRound.spells);
+    const pieceSpells = structuredClone(prevRound.pieceSpells);
+
     if (swap) {
       player2[piece.type].location = [
         Number(newCell.parentElement.getAttribute("data-row")),
@@ -111,7 +113,7 @@ export default async function handleMovePiece(
         }
       }
 
-      round = { player1, player2, spells };
+      round = { player1, player2, spells, pieceSpells };
     } else {
       if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
         player2[piece.type].location = [
@@ -126,7 +128,7 @@ export default async function handleMovePiece(
           Number(newCell.getAttribute("data-col")),
         ];
       }
-      round = { player1, player2, spells };
+      round = { player1, player2, spells, pieceSpells };
     }
     gameHistory.push(round);
   } else {
@@ -134,6 +136,7 @@ export default async function handleMovePiece(
     const player2 = structuredClone(prevRound.player2);
     const player1 = structuredClone(prevRound.player1);
     const spells = structuredClone(prevRound.spells);
+    const pieceSpells = structuredClone(prevRound.pieceSpells);
     if (swap) {
       player1[piece.type].location = [
         Number(newCell.parentElement.getAttribute("data-row")),
@@ -165,7 +168,7 @@ export default async function handleMovePiece(
         }
       }
 
-      round = { player1, player2, spells };
+      round = { player1, player2, spells, pieceSpells };
     } else {
       if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
         player1[piece.type].location = [
@@ -180,7 +183,7 @@ export default async function handleMovePiece(
           Number(newCell.getAttribute("data-col")),
         ];
       }
-      round = { player1, player2, spells };
+      round = { player1, player2, spells, pieceSpells };
     }
     gameHistory.push(round);
   }

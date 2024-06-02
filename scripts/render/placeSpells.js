@@ -24,5 +24,21 @@ export default function placeSpells(player) {
 
   const history = JSON.parse(localStorage.getItem("gameHistory"));
   history[0].spells = JSON.parse(localStorage.getItem("spells"));
+  history[0].pieceSpells = {
+    player1: {
+      SemiRicochet: null,
+      Ricochet: null,
+      Titan: null,
+      Tank: null,
+      Cannon: null,
+    },
+    player2: {
+      SemiRicochet: null,
+      Ricochet: null,
+      Titan: null,
+      Tank: null,
+      Cannon: null,
+    },
+  };
   localStorage.setItem("gameHistory", JSON.stringify(history));
 }
