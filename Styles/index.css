@@ -317,3 +317,36 @@ body {
   }
   overflow: scroll;
 }
+
+.spell {
+  height: 70px;
+  width: 70px;
+  margin-top: 10px;
+  border-radius: 50%;
+  border: beige solid 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 250ms;
+  font-size: 12px;
+  transition: all 250ms;
+  &:hover {
+    background-color: skyblue;
+  }
+}
+
+.goThru {
+  background-image: url("../Assets/Red.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.spellText {
+  overflow: scroll;
+  opacity: 0%;
+  transition: 250ms all;
+  cursor: pointer;
+  &:hover {
+    opacity: 50%;
+  }
+}

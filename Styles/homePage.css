@@ -27,6 +27,9 @@ body {
   width: 40%;
   backdrop-filter: saturate(180%) blur(8px);
   border-radius: 20px;
+  @media only screen and (max-width: 901px) {
+    width: 90%;
+  }
 }
 
 .menu-item a {

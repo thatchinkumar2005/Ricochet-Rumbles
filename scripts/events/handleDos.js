@@ -78,11 +78,15 @@ export default function handleDos(do_) {
         }
       });
     }
+    const spells = structuredClone(round.spells);
+    localStorage.setItem("spells", JSON.stringify(spells));
     console.log(player_);
     localStorage.setItem("doIndex", doIndex);
     const prevInterval = JSON.parse(localStorage.getItem("timer")).interval;
     clearInterval(prevInterval);
     addHandlePieceSelect(player_, false);
+    const pieces = document.querySelectorAll(".piece");
+    pieces.forEach((p) => (p.spell = null));
   } else {
     doIndex--;
     if (doIndex === -1) return;
@@ -156,6 +160,8 @@ export default function handleDos(do_) {
         }
       });
     }
+    const spells = structuredClone(round.spells);
+    localStorage.setItem("spells", JSON.stringify(spells));
     console.log(player_);
     localStorage.setItem("doIndex", doIndex);
     const prevInterval = JSON.parse(localStorage.getItem("timer")).interval;

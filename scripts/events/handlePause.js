@@ -1,4 +1,5 @@
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
+import handleSpellClick from "./handleSpellClick.js";
 import pieceHover from "./pieceHover.js";
 
 export default function handlePause() {
@@ -80,5 +81,8 @@ export default function handlePause() {
     const pause = document.querySelector("#pause");
     pause.style.backgroundImage = "url('../Assets/Play.png')";
     timerDisplay.style.color = "grey";
+
+    const spells = document.querySelectorAll(".spell");
+    spells.forEach((s) => s.removeEventListener("click", handleSpellClick));
   }
 }

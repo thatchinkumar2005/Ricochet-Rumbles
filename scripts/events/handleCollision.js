@@ -6,6 +6,34 @@ export default async function handleCollision(piece, replay) {
     absorbed = false,
     ricochet = false,
     semiRicochetBroken = false;
+
+  if (piece.spell) {
+    console.log(piece.spell);
+    if (piece.spell === "goThru") {
+      piece.spell = null;
+      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+    } else if (piece.spell === "destroy") {
+      piece.remove();
+      const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+      delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
+        piece.type
+      ];
+      localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+      const semiRicochetBreakAudio = document.querySelector(
+        "#semiRicochetBreakAudio"
+      );
+      semiRicochetBreakAudio.pause();
+      semiRicochetBreakAudio.currentTime = 0;
+      semiRicochetBreakAudio.play();
+      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+    } else if (piece.spell === "shield") {
+      absorbed = true;
+      piece.spell = null;
+      const bullet = document.querySelector(".bullet");
+      bullet.remove();
+      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+    }
+  }
   let prevDir;
   console.log(piece);
   const Absorb = ["Tank", "Cannon"];

@@ -79,6 +79,7 @@ export default async function handleMovePiece(
     let round;
     const player2 = structuredClone(prevRound.player2);
     const player1 = structuredClone(prevRound.player1);
+    const spells = structuredClone(prevRound.spells);
     if (swap) {
       player2[piece.type].location = [
         Number(newCell.parentElement.getAttribute("data-row")),
@@ -110,7 +111,7 @@ export default async function handleMovePiece(
         }
       }
 
-      round = { player1, player2 };
+      round = { player1, player2, spells };
     } else {
       if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
         player2[piece.type].location = [
@@ -125,13 +126,14 @@ export default async function handleMovePiece(
           Number(newCell.getAttribute("data-col")),
         ];
       }
-      round = { player1, player2 };
+      round = { player1, player2, spells };
     }
     gameHistory.push(round);
   } else {
     let round;
     const player2 = structuredClone(prevRound.player2);
     const player1 = structuredClone(prevRound.player1);
+    const spells = structuredClone(prevRound.spells);
     if (swap) {
       player1[piece.type].location = [
         Number(newCell.parentElement.getAttribute("data-row")),
@@ -163,7 +165,7 @@ export default async function handleMovePiece(
         }
       }
 
-      round = { player1, player2 };
+      round = { player1, player2, spells };
     } else {
       if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
         player1[piece.type].location = [
@@ -178,7 +180,7 @@ export default async function handleMovePiece(
           Number(newCell.getAttribute("data-col")),
         ];
       }
-      round = { player1, player2 };
+      round = { player1, player2, spells };
     }
     gameHistory.push(round);
   }

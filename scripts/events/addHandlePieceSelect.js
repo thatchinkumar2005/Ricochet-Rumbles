@@ -1,7 +1,9 @@
 import { pieces as Pieces } from "../Globals/players.js";
+import placeSpells from "../render/placeSpells.js";
 import writeHistory from "../render/writeHistory.js";
 import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
+import handleSpellClick from "./handleSpellClick.js";
 import pieceHover from "./pieceHover.js";
 
 export default function addHandlePieceSelect(
@@ -67,11 +69,17 @@ export default function addHandlePieceSelect(
       p.addEventListener("mouseenter", pieceHover); //audio on hover event
       p.classList.add("turn");
     });
+    if (settings.spells) {
+      placeSpells(player);
+    }
   } else {
     const turnCard = document.querySelector(".turnCard");
     const pauseButton = document.querySelector("#pause");
     const dests = document.querySelectorAll(".validDest");
     const controlls = document.querySelector("#controlls");
+
+    const spells = document.querySelectorAll(".spell");
+    spells.forEach((s) => s.removeEventListener("click", handleSpellClick));
 
     const gameOverAudio = document.querySelector("#gameover_audio");
     gameOverAudio.pause();

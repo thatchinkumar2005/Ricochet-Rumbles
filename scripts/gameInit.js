@@ -2,6 +2,7 @@ import { players } from "./Globals/players.js";
 import addHandlePieceSelect from "./events/addHandlePieceSelect.js";
 import handleDos from "./events/handleDos.js";
 import handlePause from "./events/handlePause.js";
+import placeSpells from "./render/placeSpells.js";
 
 export default function gameInit(initialPlayer, gameOver) {
   if (!gameOver) {
@@ -9,7 +10,6 @@ export default function gameInit(initialPlayer, gameOver) {
     gameStartAudio.pause();
     gameStartAudio.currentTime = 0;
     gameStartAudio.play();
-    addHandlePieceSelect(initialPlayer, gameOver);
 
     localStorage.setItem("players", JSON.stringify(players));
 
@@ -32,9 +32,19 @@ export default function gameInit(initialPlayer, gameOver) {
     const { history, spells } = JSON.parse(localStorage.getItem("settings"));
     if (!spells) {
       document.querySelector(".spells").remove();
+    } else {
+      localStorage.setItem(
+        "spells",
+        JSON.stringify({
+          player1: ["goThru", "destroy", "shield"],
+          player2: ["goThru", "destroy", "shield"],
+        })
+      );
     }
     if (!history) {
       document.querySelector(".history").remove();
     }
+
+    addHandlePieceSelect(initialPlayer, gameOver);
   }
 }
