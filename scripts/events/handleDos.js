@@ -21,6 +21,16 @@ export default function handleDos(do_) {
       console.log(players);
       players[i].pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
+          if (settings.spells) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = round.pieceSpells[`player${i + 1}`][p];
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            piece.classList.add(`${piece.spell}Animate`);
+          }
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(
@@ -101,6 +111,16 @@ export default function handleDos(do_) {
       console.log(players);
       players[i].pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
+          if (settings.spells) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = round.pieceSpells[`player${i + 1}`][p];
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            piece.classList.add(`${piece.spell}Animate`);
+          }
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(

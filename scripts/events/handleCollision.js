@@ -23,7 +23,6 @@ export default async function handleCollision(piece, replay) {
       piece.spell = null;
       piece.classList.remove("goThruAnimate");
       round.pieceSpells[`player${piece.player}`][piece.type] = null;
-      localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     } else if (piece.spell === "destroy") {
       writeHistory(`Bullet destroyed ${piece.type}`);
