@@ -1,4 +1,5 @@
 import moveBullet from "../render/Bullet.js";
+import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
 import pieceHover from "./pieceHover.js";
@@ -44,29 +45,58 @@ export default async function handleSpellClick(e) {
   clickAudio.currentTime = 0;
   clickAudio.play();
 
+  const isBot = localStorage.getItem("bot");
+
+  const spellHistory = JSON.parse(localStorage.getItem("spellHistory"));
+  const prevSpellRound = spellHistory[spellHistory.length - 1];
+  const newSpellRound = structuredClone(prevSpellRound);
+  const history = JSON.parse(localStorage.getItem("gameHistory"));
+  const prevRound = history[history.length - 1];
+  const newRound = structuredClone(prevRound);
+
   switch (spell.type) {
     case "goThru":
       pieces = document.querySelectorAll(".piece");
       console.log("gothru");
       pieces.forEach((p) => {
         p.parentElement.classList.add("validDest");
-        p.onclick = async () => {
+        p.onclick = async (e) => {
           //audio
           magicAudio.pause();
           magicAudio.currentTime = 0;
           magicAudio.play();
-          p.spell = spell.type;
+
+          if (isBot == 1) {
+            if (spell.player == 1) {
+              writeHistory(`Bot applied ${spell.type} to ${e.srcElement.type}`);
+            } else {
+              writeHistory(
+                `Player applied ${spell.type} to ${e.srcElement.type}`
+              );
+            }
+          } else {
+            writeHistory(
+              `Player ${spell.player} applied ${spell.type} to ${e.srcElement.type}`
+            );
+          }
+
+          p.spell = spell.type; //apply spell
+          p.classList.add("goThruAnimate");
+          newSpellRound[`player${spell.player}`][p.type] = spell.type;
+          spellHistory.push(newSpellRound);
+          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
+          console.log(spellHistory);
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
-          });
+          }); //remove other listners
           clearInterval(Number(prevInterval)); //removing previous timer interval
           pieces.forEach((p) =>
             p.removeEventListener("mouseenter", pieceHover)
           );
 
           gameOver = await moveBullet(dir, cannonLocation, spell.player);
-          addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver);
+          addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver); //switching player
           console.log(gameOver);
         };
       });
@@ -78,6 +108,11 @@ export default async function handleSpellClick(e) {
         1
       );
       localStorage.setItem("spells", JSON.stringify(spells));
+      newRound.spells = spells;
+      console.log(newRound);
+      history.push(newRound);
+      console.log(history);
+      localStorage.setItem("gameHistory", JSON.stringify(history));
       break;
     case "destroy":
       pieces = document.querySelectorAll(".piece");
@@ -85,12 +120,31 @@ export default async function handleSpellClick(e) {
       pieces.forEach((p) => {
         if (p.type === "Titan" || p.type === "Cannon") return;
         p.parentElement.classList.add("validDest");
-        p.onclick = async () => {
+        p.onclick = async (e) => {
           //audio
           magicAudio.pause();
           magicAudio.currentTime = 0;
           magicAudio.play();
+
+          if (isBot == 1) {
+            if (spell.player == 1) {
+              writeHistory(`Bot applied ${spell.type} to ${e.srcElement.type}`);
+            } else {
+              writeHistory(
+                `Player applied ${spell.type} to ${e.srcElement.type}`
+              );
+            }
+          } else {
+            writeHistory(
+              `Player ${spell.player} applied ${spell.type} to ${e.srcElement.type}`
+            );
+          }
+
           p.spell = spell.type;
+          p.classList.add("destroyAnimate");
+          newSpellRound[`player${spell.player}`][p.type] = spell.type;
+          spellHistory.push(newSpellRound);
+          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
@@ -111,18 +165,41 @@ export default async function handleSpellClick(e) {
         1
       );
       localStorage.setItem("spells", JSON.stringify(spells));
+      newRound.spells = spells;
+      console.log(newRound);
+      history.push(newRound);
+      console.log(history);
+      localStorage.setItem("gameHistory", JSON.stringify(history));
       break;
     case "shield":
       pieces = document.querySelectorAll(".piece");
       console.log("shield");
       pieces.forEach((p) => {
         p.parentElement.classList.add("validDest");
-        p.onclick = async () => {
+        p.onclick = async (e) => {
           //audio
           magicAudio.pause();
           magicAudio.currentTime = 0;
           magicAudio.play();
+
+          if (isBot == 1) {
+            if (spell.player == 1) {
+              writeHistory(`Bot applied ${spell.type} to ${e.srcElement.type}`);
+            } else {
+              writeHistory(
+                `Player applied ${spell.type} to ${e.srcElement.type}`
+              );
+            }
+          } else {
+            writeHistory(
+              `Player ${spell.player} applied ${spell.type} to ${e.srcElement.type}`
+            );
+          }
+
           p.spell = spell.type;
+          newSpellRound[`player${spell.player}`][p.type] = spell.type;
+          spellHistory.push(newSpellRound);
+          localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
@@ -143,15 +220,12 @@ export default async function handleSpellClick(e) {
         1
       );
       localStorage.setItem("spells", JSON.stringify(spells));
+      newRound.spells = spells;
+      console.log(newRound);
+      history.push(newRound);
+      console.log(history);
+      localStorage.setItem("gameHistory", JSON.stringify(history));
 
       break;
   }
-  const history = JSON.parse(localStorage.getItem("gameHistory"));
-  const prevRound = history[history.length - 1];
-  const newRound = structuredClone(prevRound);
-  newRound.spells = spells;
-  console.log(newRound);
-  history.push(newRound);
-  console.log(history);
-  localStorage.setItem("gameHistory", JSON.stringify(history));
 }

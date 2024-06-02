@@ -1,3 +1,4 @@
+import { Ricochet, SemiRicochet } from "./Globals/RicochetOrientation.js";
 import { players } from "./Globals/players.js";
 import addHandlePieceSelect from "./events/addHandlePieceSelect.js";
 import handleDos from "./events/handleDos.js";
@@ -39,6 +40,27 @@ export default function gameInit(initialPlayer, gameOver) {
           player1: ["goThru", "destroy", "shield"],
           player2: ["goThru", "destroy", "shield"],
         })
+      );
+      localStorage.setItem(
+        "spellHistory",
+        JSON.stringify([
+          {
+            player1: {
+              SemiRicochet: null,
+              Ricochet: null,
+              Titan: null,
+              Tank: null,
+              Cannon: null,
+            },
+            player2: {
+              SemiRicochet: null,
+              Ricochet: null,
+              Titan: null,
+              Tank: null,
+              Cannon: null,
+            },
+          },
+        ])
       );
     }
     if (!history) {

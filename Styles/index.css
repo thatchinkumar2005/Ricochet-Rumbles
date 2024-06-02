@@ -350,3 +350,29 @@ body {
     opacity: 50%;
   }
 }
+
+@keyframes goThruKF {
+  from {
+    background-color: blue;
+  }
+}
+@keyframes destroyKF {
+  from {
+    background-color: red;
+  }
+}
+@keyframes shieldKF {
+  from {
+    background-color: yellow;
+  }
+}
+
+.goThruAnimate {
+  animation: goThruKF 1s infinite alternate;
+}
+.destroyAnimate {
+  animation: destroyKF 1s infinite alternate;
+}
+.shieldAnimate {
+  animation: shieldKF 1s infinite alternate;
+}
