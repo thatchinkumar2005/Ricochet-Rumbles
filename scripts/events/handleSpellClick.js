@@ -81,6 +81,11 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type; //apply spell
+          e.srcElement.classList.remove(
+            "goThruAnimate",
+            "destroyAnimate",
+            "shieldAnimate"
+          );
           p.classList.add("goThruAnimate");
           newSpellRound[`player${spell.player}`][p.type] = spell.type;
           spellHistory.push(newSpellRound);
@@ -141,6 +146,11 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type;
+          p.classList.remove(
+            "goThruAnimate",
+            "destroyAnimate",
+            "shieldAnimate"
+          );
           p.classList.add("destroyAnimate");
           newSpellRound[`player${spell.player}`][p.type] = spell.type;
           spellHistory.push(newSpellRound);
@@ -197,6 +207,12 @@ export default async function handleSpellClick(e) {
           }
 
           p.spell = spell.type;
+          p.classList.remove(
+            "goThruAnimate",
+            "destroyAnimate",
+            "shieldAnimate"
+          );
+          p.classList.add("shieldAnimate");
           newSpellRound[`player${spell.player}`][p.type] = spell.type;
           spellHistory.push(newSpellRound);
           localStorage.setItem("spellHistory", JSON.stringify(spellHistory));

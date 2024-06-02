@@ -3,7 +3,12 @@ import { players } from "../Globals/players.js";
 import writeHistory from "../render/writeHistory.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 export default function handleDos(do_) {
+  const settings = JSON.parse(localStorage.getItem("settings"));
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+  let spellHistory;
+  if (settings.spells) {
+    spellHistory = JSON.parse(localStorage.getItem("spellHistory"));
+  }
   let doIndex = localStorage.getItem("doIndex");
   let player_;
 
@@ -11,15 +16,43 @@ export default function handleDos(do_) {
     doIndex++;
     console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
+    const spellRound = structuredClone(
+      spellHistory[spellHistory.length - (doIndex + 1)]
+    );
     if (!round) return;
     writeHistory("Undo");
     console.log(round);
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
+      let spellPlayer;
+      if (spellRound) {
+        spellPlayer = structuredClone(spellRound[`player${i + 1}`]);
+      }
       console.log(players);
       players[i].pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
+          if (spellPlayer) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = spellPlayer[p];
+            console.log(`${piece.type} : ${piece.spell}`);
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            switch (spellPlayer[p]) {
+              case "goThru":
+                piece.classList.add("goThruAnimate");
+                break;
+              case "destroy":
+                piece.classList.add("destroyAnimate");
+                break;
+              case "shield":
+                piece.classList.add("shieldAnimate");
+                break;
+            }
+          }
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(
@@ -85,23 +118,48 @@ export default function handleDos(do_) {
     const prevInterval = JSON.parse(localStorage.getItem("timer")).interval;
     clearInterval(prevInterval);
     addHandlePieceSelect(player_, false);
-    const pieces = document.querySelectorAll(".piece");
-    pieces.forEach((p) => (p.spell = null));
   } else {
     doIndex--;
     if (doIndex === -1) return;
     writeHistory("Redo");
     console.log(`DoIndex->index : ${gameHistory.length - (doIndex + 1)}`);
     const round = gameHistory[gameHistory.length - (doIndex + 1)];
+    const spellRound = structuredClone(
+      spellHistory[spellHistory.length - (doIndex + 1)]
+    );
     if (!round) return;
     console.log(round);
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
+      let spellPlayer;
+      if (spellRound) {
+        spellPlayer = structuredClone(spellRound[`player${i + 1}`]);
+      }
       console.log(player);
       console.log(players);
       players[i].pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
+          if (spellRound) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = spellPlayer[p];
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            switch (spellPlayer[p]) {
+              case "goThru":
+                piece.classList.add("goThruAnimate");
+                break;
+              case "destroy":
+                piece.classList.add("destroyAnimate");
+                break;
+              case "shield":
+                piece.classList.add("shieldAnimate");
+                break;
+            }
+          }
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(
