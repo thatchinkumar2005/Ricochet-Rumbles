@@ -1,4 +1,5 @@
 import handleSpellClick from "../events/handleSpellClick.js";
+import pieceHover from "../events/pieceHover.js";
 
 export default function placeSpells(player) {
   const spells = JSON.parse(localStorage.getItem("spells"));
@@ -18,6 +19,7 @@ export default function placeSpells(player) {
     spell.player = player;
 
     spell.addEventListener("click", handleSpellClick);
+    spell.addEventListener("mouseenter", pieceHover);
   });
 
   const history = JSON.parse(localStorage.getItem("gameHistory"));

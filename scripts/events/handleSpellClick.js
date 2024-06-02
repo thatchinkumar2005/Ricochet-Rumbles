@@ -1,6 +1,7 @@
 import moveBullet from "../render/Bullet.js";
 import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handlePause from "./handlePause.js";
+import pieceHover from "./pieceHover.js";
 
 export default async function handleSpellClick(e) {
   const spell = e.srcElement;
@@ -18,7 +19,6 @@ export default async function handleSpellClick(e) {
   const pause = document.querySelector("#pause");
   pause.removeEventListener("click", handlePause);
   const prevInterval = JSON.parse(localStorage.getItem("timer")).interval; //getting the previous timer interval
-  clearInterval(Number(prevInterval)); //removing previous timer interval
 
   const dir = e.srcElement.player === 1 ? 0 : 1;
   let pieces, spells;
@@ -32,7 +32,17 @@ export default async function handleSpellClick(e) {
   });
 
   pieces = document.querySelectorAll(".piece");
-  pieces.forEach((p) => (p.onclick = null));
+  pieces.forEach((p) => {
+    p.onclick = null;
+    p.removeEventListener("mouseenter", pieceHover);
+    p.addEventListener("mouseenter", pieceHover);
+  });
+
+  const magicAudio = document.querySelector("#magicAudio");
+  const clickAudio = document.querySelector("#click_audio");
+  clickAudio.pause();
+  clickAudio.currentTime = 0;
+  clickAudio.play();
 
   switch (spell.type) {
     case "goThru":
@@ -41,11 +51,20 @@ export default async function handleSpellClick(e) {
       pieces.forEach((p) => {
         p.parentElement.classList.add("validDest");
         p.onclick = async () => {
+          //audio
+          magicAudio.pause();
+          magicAudio.currentTime = 0;
+          magicAudio.play();
           p.spell = spell.type;
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
           });
+          clearInterval(Number(prevInterval)); //removing previous timer interval
+          pieces.forEach((p) =>
+            p.removeEventListener("mouseenter", pieceHover)
+          );
+
           gameOver = await moveBullet(dir, cannonLocation, spell.player);
           addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver);
           console.log(gameOver);
@@ -67,11 +86,20 @@ export default async function handleSpellClick(e) {
         if (p.type === "Titan" || p.type === "Cannon") return;
         p.parentElement.classList.add("validDest");
         p.onclick = async () => {
+          //audio
+          magicAudio.pause();
+          magicAudio.currentTime = 0;
+          magicAudio.play();
           p.spell = spell.type;
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
           });
+          pieces.forEach((p) =>
+            p.removeEventListener("mouseenter", pieceHover)
+          );
+
+          clearInterval(Number(prevInterval)); //removing previous timer interval
           gameOver = await moveBullet(dir, cannonLocation, spell.player);
           addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver);
           console.log(gameOver);
@@ -90,11 +118,20 @@ export default async function handleSpellClick(e) {
       pieces.forEach((p) => {
         p.parentElement.classList.add("validDest");
         p.onclick = async () => {
+          //audio
+          magicAudio.pause();
+          magicAudio.currentTime = 0;
+          magicAudio.play();
           p.spell = spell.type;
           pieces.forEach((p) => {
             p.onclick = null;
             p.parentElement.classList.remove("validDest");
           });
+          clearInterval(Number(prevInterval)); //removing previous timer interval
+          pieces.forEach((p) =>
+            p.removeEventListener("mouseenter", pieceHover)
+          );
+
           gameOver = await moveBullet(dir, cannonLocation, spell.player);
           addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver);
           console.log(gameOver);
@@ -106,6 +143,7 @@ export default async function handleSpellClick(e) {
         1
       );
       localStorage.setItem("spells", JSON.stringify(spells));
+
       break;
   }
   const history = JSON.parse(localStorage.getItem("gameHistory"));
