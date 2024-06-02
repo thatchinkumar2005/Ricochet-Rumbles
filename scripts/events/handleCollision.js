@@ -7,6 +7,11 @@ export default async function handleCollision(piece, replay) {
     ricochet = false,
     semiRicochetBroken = false;
 
+  const collisionAudio = document.querySelector("#collision_audio");
+  collisionAudio.pause();
+  collisionAudio.currentTime = 0;
+  collisionAudio.play();
+
   if (piece.spell) {
     console.log(piece.spell);
     if (piece.spell === "goThru") {
@@ -38,10 +43,6 @@ export default async function handleCollision(piece, replay) {
   console.log(piece);
   const Absorb = ["Tank", "Cannon"];
   const type = piece.type;
-  const collisionAudio = document.querySelector("#collision_audio");
-  collisionAudio.pause();
-  collisionAudio.currentTime = 0;
-  collisionAudio.play();
   console.log(Absorb.includes(type));
   if (Absorb.includes(type)) {
     absorbed = true;
