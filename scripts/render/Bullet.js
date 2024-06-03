@@ -21,22 +21,19 @@ export default async function moveBullet(
   const bullet = document.createElement("div");
   bullet.player = player;
   bullet.classList.add("bullet");
+  bullet.dir_ = dir;
   switch (dir) {
     case 0:
       bullet.classList.add("bullet_top");
-      bullet.dir_ = 0;
       break;
     case 1:
       console.log("no orientation change");
-      bullet.dir_ = 1;
       break;
     case 2:
       bullet.classList.add("bullet_right");
-      bullet.dir_ = 2;
       break;
     case 3:
       bullet.classList.add("bullet_left");
-      bullet.dir_ = 3;
       break;
   }
 

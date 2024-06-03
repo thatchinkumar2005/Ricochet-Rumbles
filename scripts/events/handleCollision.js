@@ -125,10 +125,10 @@ export default async function handleCollision(piece, replay) {
   }
   let prevDir;
   console.log(piece);
-  const Absorb = ["Tank", "Cannon"];
+  const Absorb = ["Cannon"];
   const type = piece.type;
   console.log(Absorb.includes(type));
-  if (Absorb.includes(type)) {
+  if (type === "Cannon") {
     absorbed = true;
     console.log("Absorbed");
     const bullet = document.querySelector(".bullet");
@@ -140,6 +140,15 @@ export default async function handleCollision(piece, replay) {
     console.log(gameOver);
     bullet.remove();
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
+  } else if (type === "Tank") {
+    const bullet = document.querySelector(".bullet");
+    if (bullet.dir_ === 3) {
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
+    } else {
+      absorbed = true;
+      bullet.remove();
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
+    }
   } else {
     if (type === "Ricochet") {
       ricochet = true;

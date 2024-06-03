@@ -52,7 +52,7 @@ export default function handlePieceSelect(pieceElement) {
 
     if (pieceElement.type === "Ricochet") {
       const swapButton = document.createElement("div");
-      swapButton.classList.add("btn");
+      swapButton.classList.add("btn", "swap");
       swapButton.onclick = () => {
         handleSwap(pieceElement);
       };

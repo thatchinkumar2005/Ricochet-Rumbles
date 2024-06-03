@@ -1,4 +1,5 @@
 import { pieces as Pieces } from "../Globals/players.js";
+import bot from "../bot/bot.js";
 import placeSpells from "../render/placeSpells.js";
 import writeHistory from "../render/writeHistory.js";
 import handleDos from "./handleDos.js";
@@ -189,7 +190,6 @@ export default function addHandlePieceSelect(
       let piece = document.querySelector(`.player1.${randomPiece}`);
     }
     piece.click();
-
     pieces.forEach((p) => (p.onclick = null));
   }
 }
