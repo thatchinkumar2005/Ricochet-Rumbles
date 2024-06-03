@@ -23,6 +23,10 @@ export default function addHandlePieceSelect(
   const pieces = document.querySelectorAll(".piece");
   const pause = document.querySelector("#pause");
 
+  pieces.forEach((p) => {
+    p.onclick = null;
+    p.classList.remove("turn");
+  });
   if (!gameOver) {
     //timer
     if (setTimer) {
