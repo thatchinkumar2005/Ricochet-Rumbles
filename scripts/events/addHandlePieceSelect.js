@@ -120,7 +120,13 @@ export default function addHandlePieceSelect(
     }
     pieces.forEach((p) => {
       p.onclick = null;
-      p.classList.remove("turn");
+      p.classList.remove(
+        "turn",
+        "goThruAnimate",
+        "destroyAnimate",
+        "swapAnimate",
+        "shieldAnimate"
+      );
     });
     pauseButton.removeEventListener("click", handlePause);
     pieces.forEach((p) => {

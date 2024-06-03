@@ -37,30 +37,9 @@ export default function gameInit(initialPlayer, gameOver) {
       localStorage.setItem(
         "spells",
         JSON.stringify({
-          player1: ["goThru", "destroy", "shield"],
-          player2: ["goThru", "destroy", "shield"],
+          player1: ["goThru", "destroy", "swap", "shield"],
+          player2: ["goThru", "destroy", "swap", "shield"],
         })
-      );
-      localStorage.setItem(
-        "spellHistory",
-        JSON.stringify([
-          {
-            player1: {
-              SemiRicochet: null,
-              Ricochet: null,
-              Titan: null,
-              Tank: null,
-              Cannon: null,
-            },
-            player2: {
-              SemiRicochet: null,
-              Ricochet: null,
-              Titan: null,
-              Tank: null,
-              Cannon: null,
-            },
-          },
-        ])
       );
     }
     if (!history) {

@@ -5,7 +5,8 @@ export default async function handleCollision(piece, replay) {
   let gameOver = false,
     absorbed = false,
     ricochet = false,
-    semiRicochetBroken = false;
+    semiRicochetBroken = false,
+    cont = true;
 
   const collisionAudio = document.querySelector("#collision_audio");
   collisionAudio.pause();
@@ -29,8 +30,9 @@ export default async function handleCollision(piece, replay) {
         localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
       }
 
-      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
     } else if (piece.spell === "destroy") {
+      cont = false;
       writeHistory(`Bullet destroyed ${piece.type}`);
       piece.remove();
       const bullet = document.querySelector(".bullet");
@@ -51,7 +53,7 @@ export default async function handleCollision(piece, replay) {
       semiRicochetBreakAudio.currentTime = 0;
       semiRicochetBreakAudio.play();
       piece.classList.remove("destroyAnimate");
-      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
     } else if (piece.spell === "shield") {
       absorbed = true;
       piece.spell = null;
@@ -63,7 +65,62 @@ export default async function handleCollision(piece, replay) {
           `player${piece.player}`
         ][piece.type] = null;
       }
-      return { gameOver, absorbed, ricochet, semiRicochetBroken };
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
+    } else if (piece.spell === "swap") {
+      cont = false;
+      piece.spell = null;
+      piece.classList.remove("swapAnimate");
+      const bullet = document.querySelector(".bullet");
+      bullet.remove();
+      const playerPiece = document.querySelector(
+        `.player${piece.player}.${piece.type}`
+      );
+      const otherPiece = document.querySelector(
+        `.player${piece.player === 1 ? 2 : 1}.${piece.type}`
+      );
+      const playerCell = playerPiece.parentElement;
+      const otherCell = otherPiece.parentElement;
+      playerPiece.remove();
+      otherPiece.remove();
+      playerCell.appendChild(otherPiece);
+      otherCell.appendChild(playerPiece);
+
+      //history
+      if (!replay) {
+        gameHistory[gameHistory.length - 1].pieceSpells[
+          `player${piece.player}`
+        ][piece.type] = null;
+
+        if (piece.type === "Ricochet" || piece.type === "SemiRicochet") {
+          gameHistory[gameHistory.length - 1][`player${playerPiece.player}`][
+            playerPiece.type
+          ].location = [
+            Number(otherCell.getAttribute("data-row")),
+            Number(otherCell.getAttribute("data-col")),
+          ];
+          gameHistory[gameHistory.length - 1][`player${otherPiece.player}`][
+            otherPiece.type
+          ].location = [
+            Number(playerCell.getAttribute("data-row")),
+            Number(playerCell.getAttribute("data-col")),
+          ];
+        } else {
+          gameHistory[gameHistory.length - 1][`player${playerPiece.player}`][
+            playerPiece.type
+          ] = [
+            Number(otherCell.getAttribute("data-row")),
+            Number(otherCell.getAttribute("data-col")),
+          ];
+          gameHistory[gameHistory.length - 1][`player${otherPiece.player}`][
+            otherPiece.type
+          ] = [
+            Number(playerCell.getAttribute("data-row")),
+            Number(playerCell.getAttribute("data-col")),
+          ];
+        }
+      }
+      localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
     }
   }
   let prevDir;
@@ -76,13 +133,13 @@ export default async function handleCollision(piece, replay) {
     console.log("Absorbed");
     const bullet = document.querySelector(".bullet");
     bullet.remove();
-    return { gameOver, absorbed, ricochet, semiRicochetBroken };
+    return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else if (type === "Titan") {
     const bullet = document.querySelector(".bullet");
     gameOver = bullet.player !== piece.player;
     console.log(gameOver);
     bullet.remove();
-    return { gameOver, absorbed, ricochet, semiRicochetBroken };
+    return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else {
     if (type === "Ricochet") {
       ricochet = true;
@@ -161,11 +218,11 @@ export default async function handleCollision(piece, replay) {
             }
             localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
           }
-          return { gameOver, absorbed, ricochet, semiRicochetBroken };
+          return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
       }
 
       gameOver = await moveBullet(dir, srcLocation, bullet.player); //recursive call
     }
   }
-  return { gameOver, absorbed, ricochet, semiRicochetBroken };
+  return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
 }

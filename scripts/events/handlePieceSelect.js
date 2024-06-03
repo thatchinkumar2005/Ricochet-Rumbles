@@ -56,7 +56,7 @@ export default function handlePieceSelect(pieceElement) {
       swapButton.onclick = () => {
         handleSwap(pieceElement);
       };
-      swapButton.innerHTML = "<img src='Assets/Swap.png' class='btnimg'/>";
+      swapButton.innerHTML = "<img src='Assets/SwapIcon.png' class='btnimg'/>";
       controlls.appendChild(swapButton);
     }
   }

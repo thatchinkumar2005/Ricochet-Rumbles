@@ -1,6 +1,3 @@
-import moveBullet from "../render/Bullet.js";
-import writeHistory from "../render/writeHistory.js";
-import addHandlePieceSelect from "./addHandlePieceSelect.js";
 import handleApplySpell from "./handleApplySpell.js";
 import handlePause from "./handlePause.js";
 import pieceHover from "./pieceHover.js";
@@ -68,6 +65,17 @@ export default async function handleSpellClick(e) {
         };
       });
 
+      break;
+    case "swap":
+      pieces = document.querySelectorAll(".piece");
+      console.log("shield");
+      pieces.forEach((p) => {
+        if (p.type === "Cannon") return;
+        p.parentElement.classList.add("validDest");
+        p.onclick = (e) => {
+          handleApplySpell(p, spell);
+        };
+      });
       break;
   }
 }

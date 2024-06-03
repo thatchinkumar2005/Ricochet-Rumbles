@@ -366,6 +366,11 @@ body {
     background-color: rgb(235, 164, 52, 0.5);
   }
 }
+@keyframes swapKF {
+  from {
+    background-color: rgb(136, 235, 51, 0.5);
+  }
+}
 
 .goThruAnimate {
   animation: goThruKF 1s infinite alternate;
@@ -375,4 +380,7 @@ body {
 }
 .shieldAnimate {
   animation: shieldKF 1s infinite alternate;
+}
+.swapAnimate {
+  animation: swapKF 1s infinite alternate;
 }

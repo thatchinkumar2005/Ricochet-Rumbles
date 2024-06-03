@@ -11,6 +11,7 @@ export default async function moveBullet(
   let absorbed = false;
   let gameOver = false;
   let semiRicochetBroken = false;
+  let cont = true;
   let { bulletSpeed } = JSON.parse(localStorage.getItem("settings"));
   bulletSpeed = Number(bulletSpeed);
 
@@ -82,7 +83,7 @@ export default async function moveBullet(
     if (bullet) bullet.remove();
   }
 
-  while (!(gameOver || absorbed || ricochet || semiRicochetBroken)) {
+  while (!gameOver && !absorbed && !ricochet && !semiRicochetBroken && cont) {
     //loop to move the bullet
     await sleep(bulletSpeed);
     // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
@@ -104,6 +105,7 @@ export default async function moveBullet(
       absorbed = data.absorbed;
       ricochet = data.ricochet;
       semiRicochetBroken = data.semiRicochetBroken;
+      cont = data.cont;
       console.log(data);
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {

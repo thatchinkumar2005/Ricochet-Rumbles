@@ -62,7 +62,12 @@ export default async function handleApplySpell(p, spell) {
   console.log(history);
   localStorage.setItem("gameHistory", JSON.stringify(history));
   console.log(newRound);
-  p.classList.remove("goThruAnimate", "destroyAnimate", "shieldAnimate");
+  p.classList.remove(
+    "goThruAnimate",
+    "destroyAnimate",
+    "shieldAnimate",
+    "swapAnimate"
+  );
   p.classList.add(`${spell.type}Animate`);
   pieces.forEach((p) => {
     p.onclick = null;

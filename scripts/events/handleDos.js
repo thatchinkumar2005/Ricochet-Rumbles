@@ -94,7 +94,8 @@ export default function handleDos(do_) {
             piece.classList.remove(
               "goThruAnimate",
               "destroyAnimate",
-              "shieldAnimate"
+              "shieldAnimate",
+              "swapAnimate"
             );
             piece.classList.add(`${piece.spell}Animate`);
           }
@@ -196,7 +197,8 @@ export default function handleDos(do_) {
             piece.classList.remove(
               "goThruAnimate",
               "destroyAnimate",
-              "shieldAnimate"
+              "shieldAnimate",
+              "swapAnimate"
             );
             piece.classList.add(`${piece.spell}Animate`);
           }
