@@ -175,8 +175,6 @@ export default async function handleMovePiece(
           Number(newCell.getAttribute("data-row")),
           Number(newCell.getAttribute("data-col")),
         ];
-
-        console.log(player2[piece.type].location);
       } else {
         player1[piece.type] = [
           Number(newCell.getAttribute("data-row")),

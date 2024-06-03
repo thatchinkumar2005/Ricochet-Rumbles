@@ -155,7 +155,8 @@ export default function addHandlePieceSelect(
     console.log(randomPiece);
     let piece = document.querySelector(`.player1.${randomPiece}`);
     if (!piece) {
-      let randomPiece = Pieces.splice(Pieces.indexOf(randomPiece), 1)[
+      let randomPiece;
+      randomPiece = Pieces.splice(Pieces.indexOf(randomPiece), 1)[
         Math.round(Math.random() * (Pieces.length - 1))
       ];
       let piece = document.querySelector(`.player1.${randomPiece}`);

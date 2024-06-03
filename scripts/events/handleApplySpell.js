@@ -7,8 +7,14 @@ import pieceHover from "./pieceHover.js";
 export default async function handleApplySpell(p, spell) {
   const magicAudio = document.querySelector("#magicAudio");
 
-  const isBot = localStorage.getItem("bot");
   const history = JSON.parse(localStorage.getItem("gameHistory"));
+  const doIndex = localStorage.getItem("doIndex");
+  if (doIndex > 0) {
+    history.splice(history.length - doIndex, doIndex);
+    localStorage.setItem("doIndex", 0);
+  }
+
+  const isBot = localStorage.getItem("bot");
   const prevRound = history[history.length - 1];
   const newRound = structuredClone(prevRound);
   const pieces = document.querySelectorAll(".piece");
