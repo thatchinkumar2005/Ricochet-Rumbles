@@ -30,7 +30,9 @@ export default function gameInit(initialPlayer, gameOver) {
     });
     localStorage.setItem("doIndex", 0);
 
-    const { history, spells } = JSON.parse(localStorage.getItem("settings"));
+    const { history, spells, undo_redo } = JSON.parse(
+      localStorage.getItem("settings")
+    );
     if (!spells) {
       document.querySelector(".spells").remove();
     } else {
@@ -44,6 +46,13 @@ export default function gameInit(initialPlayer, gameOver) {
     }
     if (!history) {
       document.querySelector(".history").remove();
+    }
+
+    if (!undo_redo) {
+      const undo = document.querySelector("#undo");
+      const redo = document.querySelector("#redo");
+      undo.remove();
+      redo.remove();
     }
 
     addHandlePieceSelect(initialPlayer, gameOver);

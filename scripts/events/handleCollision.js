@@ -206,6 +206,7 @@ export default async function handleCollision(piece, replay) {
           semiRicochetBreakAudio.pause();
           semiRicochetBreakAudio.currentTime = 0;
           semiRicochetBreakAudio.play();
+          writeHistory(`Player ${piece.player} lost SemiRicochet`);
           if (!replay) {
             const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
             delete gameHistory[gameHistory.length - 1][`player${piece.player}`][

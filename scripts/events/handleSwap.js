@@ -1,4 +1,5 @@
 import handleMovePiece from "./handleMovePiece.js";
+import pieceHover from "./pieceHover.js";
 
 export default function handleSwap(piece) {
   const pieces = Array.from(document.querySelectorAll(".piece"));
@@ -13,6 +14,13 @@ export default function handleSwap(piece) {
   });
   pieces.forEach((p) => {
     p.onclick = null;
+
+    if (p.type === "Cannon") {
+      p.removeEventListener("mouseenter", pieceHover);
+      p.classList.remove("turn");
+      return;
+    }
+    p.addEventListener("mouseenter", pieceHover);
     const cell = p.parentElement;
     cell.classList.add("validDest");
     cell.onclick = (e) => {

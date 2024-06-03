@@ -44,7 +44,9 @@ export default async function handleMovePiece(
     }
   } else {
     writeHistory(
-      `Player ${player} ${swap ? "swapped" : "moved"} ${piece.type} to (${
+      `Player ${player === "player1" ? 1 : 2} ${swap ? "swapped" : "moved"} ${
+        piece.type
+      } to (${
         swap
           ? newCell.parentElement.getAttribute("data-row")
           : newCell.getAttribute("data-row")
@@ -215,7 +217,9 @@ export default async function handleMovePiece(
 
   const allPieces = document.querySelectorAll(".piece");
   allPieces.forEach((p) => {
+    p.onclick = null;
     p.removeEventListener("mouseenter", pieceHover);
+    p.classList.remove("turn");
   });
 
   //Bullet mech

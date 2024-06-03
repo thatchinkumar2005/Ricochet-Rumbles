@@ -3,7 +3,7 @@ import { settings } from "../Globals/settings.js";
 const form = document.querySelector("form");
 
 form.elements.namedItem("time").defaultValue = 1;
-form.elements.namedItem("speed").defaultValue = 5;
+form.elements.namedItem("speed").defaultValue = 7;
 
 const button = document.querySelector("button");
 const queries = new URLSearchParams(document.location.search);
@@ -18,6 +18,7 @@ button.addEventListener("click", () => {
       bulletSpeed: 750 / Number(form.elements.namedItem("speed").value),
       spells: form.elements.namedItem("spells").checked,
       history: form.elements.namedItem("history").checked,
+      undo_redo: form.elements.namedItem("undo_redo").checked,
     })
   );
   if (mode == "2player") {

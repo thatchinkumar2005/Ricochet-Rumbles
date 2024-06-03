@@ -91,7 +91,7 @@ body {
 .cell {
   background: transparent;
   border: 2px cyan solid;
-  overflow: scroll;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -314,6 +314,7 @@ body {
   align-items: center;
   @media only screen and (max-width: 730px) {
     width: 80%;
+    flex-direction: row;
   }
   overflow: scroll;
 }
@@ -333,6 +334,12 @@ body {
   &:hover {
     background-color: skyblue;
   }
+  @media only screen and (max-width: 730px) {
+    height: 40px;
+    width: 40px;
+    margin-top: 0px;
+    margin-left: 10px;
+  }
 }
 
 .goThru {
@@ -343,12 +350,9 @@ body {
 
 .spellText {
   overflow: scroll;
-  opacity: 0%;
+  opacity: 50%;
   transition: 250ms all;
   cursor: pointer;
-  &:hover {
-    opacity: 50%;
-  }
 }
 
 @keyframes goThruKF {

@@ -23,7 +23,7 @@ body {
   justify-content: center;
   align-items: start;
   gap: 20px;
-  height: 50vh;
+  height: 60vh;
   width: 40%;
   backdrop-filter: saturate(180%) blur(8px);
   border-radius: 20px;

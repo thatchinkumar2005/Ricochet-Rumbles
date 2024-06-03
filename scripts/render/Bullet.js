@@ -15,11 +15,6 @@ export default async function moveBullet(
   let { bulletSpeed } = JSON.parse(localStorage.getItem("settings"));
   bulletSpeed = Number(bulletSpeed);
 
-  const playerPieces = document.querySelectorAll(`.piece.player${player}`);
-  playerPieces.forEach((p) => {
-    p.onclick = null;
-    p.classList.remove("turn");
-  });
   const sleep = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time));
   };

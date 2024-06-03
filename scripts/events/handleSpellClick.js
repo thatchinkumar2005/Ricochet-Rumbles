@@ -11,10 +11,9 @@ export default async function handleSpellClick(e) {
   let pieces;
 
   const prevDests = document.querySelectorAll(".validDest");
-  console.log(prevDests);
   prevDests.forEach((d) => {
+    console.log(d);
     d.classList.remove("validDest");
-    d.firstElementChild.onclick = null;
     d.onclick = null;
   });
 
