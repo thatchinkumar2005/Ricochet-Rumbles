@@ -10,6 +10,10 @@ export default async function handleSpellClick(e) {
   pause.removeEventListener("click", handlePause);
   let pieces;
 
+  const spells = document.querySelectorAll(".spell");
+  spells.forEach((s) => s.classList.remove("spellSelect"));
+  spell.classList.add("spellSelect");
+
   const prevDests = document.querySelectorAll(".validDest");
   prevDests.forEach((d) => {
     console.log(d);

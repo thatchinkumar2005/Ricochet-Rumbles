@@ -71,7 +71,6 @@ export default async function moveBullet(
   }
 
   let currentLocation = initialLocation;
-  let outOfBound = currentLocation[path] > 7 || currentLocation[path] < 0;
   if (currentLocation[path] == 7 || currentLocation[path] == 0) {
     await sleep(bulletSpeed);
     const bullet = document.querySelector(".bullet");

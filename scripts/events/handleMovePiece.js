@@ -11,6 +11,13 @@ export default async function handleMovePiece(
   swap = false
 ) {
   const isBot = localStorage.getItem("bot");
+  const settings = JSON.parse(localStorage.getItem("settings"));
+  if (settings.undo_redo) {
+    const undo = document.querySelector("#undo");
+    const redo = document.querySelector("#redo");
+    undo.onclick = null;
+    redo.onclick = null;
+  }
 
   if (isBot == 1) {
     if (player === "player1") {

@@ -18,16 +18,6 @@ export default function gameInit(initialPlayer, gameOver) {
     restartButton.addEventListener("click", () => {
       document.location.reload();
     });
-
-    const undoButton = document.querySelector("#undo");
-    undoButton.addEventListener("click", () => {
-      handleDos("undo");
-    });
-
-    const redoButton = document.querySelector("#redo");
-    redoButton.addEventListener("click", () => {
-      handleDos("redo");
-    });
     localStorage.setItem("doIndex", 0);
 
     const { history, spells, undo_redo } = JSON.parse(

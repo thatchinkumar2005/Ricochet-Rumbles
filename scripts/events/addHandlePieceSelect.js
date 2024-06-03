@@ -1,6 +1,7 @@
 import { pieces as Pieces } from "../Globals/players.js";
 import placeSpells from "../render/placeSpells.js";
 import writeHistory from "../render/writeHistory.js";
+import handleDos from "./handleDos.js";
 import handlePause from "./handlePause.js";
 import handlePieceSelect from "./handlePieceSelect.js";
 import handleSpellClick from "./handleSpellClick.js";
@@ -23,10 +24,30 @@ export default function addHandlePieceSelect(
   const pieces = document.querySelectorAll(".piece");
   const pause = document.querySelector("#pause");
 
+  if (settings.undo_redo) {
+    const undoButton = document.querySelector("#undo");
+    undoButton.onclick = () => {
+      handleDos("undo");
+    };
+
+    const redoButton = document.querySelector("#redo");
+    redoButton.onclick = () => {
+      handleDos("redo");
+    };
+  }
+
   pieces.forEach((p) => {
     p.onclick = null;
     p.classList.remove("turn");
+    p.removeEventListener("mouseenter", pieceHover);
   });
+
+  const prevDests = document.querySelectorAll(".validDest");
+  prevDests.forEach((p) => {
+    p.classList.remove("validDest");
+    p.onclick = null;
+  });
+
   if (!gameOver) {
     //timer
     if (setTimer) {

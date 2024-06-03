@@ -388,3 +388,7 @@ body {
 .swapAnimate {
   animation: swapKF 1s infinite alternate;
 }
+
+.spellSelect {
+  border: black 2px solid;
+}
