@@ -14,6 +14,7 @@ replayButton.onclick = handleReplay;
 
 async function replay() {
   const history = JSON.parse(localStorage.getItem("gameHistory"));
+  const settings = JSON.parse(localStorage.getItem("settings"));
   placeCells();
   let gameOver = false;
   let index = 0;
@@ -28,6 +29,7 @@ async function replay() {
     if (previousPieces) Array.from(previousPieces).forEach((p) => p.remove());
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(pos[`player${i + 1}`]);
+      const spellPlayer = structuredClone(pos.pieceSpells[`player${i + 1}`]);
       console.log(pieces);
       pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
@@ -48,6 +50,19 @@ async function replay() {
             cell.appendChild(piece);
           }
         }
+        if (settings.spells) {
+          if (spellPlayer.hasOwnProperty(p)) {
+            const piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = spellPlayer[p];
+            console.log(piece.spell);
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            piece.classList.add(`${piece.spell}Animate`);
+          }
+        }
       });
     }
     const Cannon = document.querySelector(`.piece.Cannon.player${player}`);
@@ -60,7 +75,8 @@ async function replay() {
     console.log(cannonLocation);
     console.log(dir);
     await sleep(250);
-    if (index !== 0) gameOver = await moveBullet(dir, cannonLocation, player);
+    if (index !== 0)
+      gameOver = await moveBullet(dir, cannonLocation, player, true);
     index++;
     if (gameOver) {
       alert("GameOver");

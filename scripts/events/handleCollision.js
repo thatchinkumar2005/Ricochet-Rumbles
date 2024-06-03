@@ -12,6 +12,7 @@ export default async function handleCollision(piece, replay) {
   collisionAudio.currentTime = 0;
   collisionAudio.play();
 
+  const settings = JSON.parse(localStorage.getItem("settings"));
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
   const round = structuredClone(gameHistory[gameHistory.length - 1]);
 
@@ -22,19 +23,26 @@ export default async function handleCollision(piece, replay) {
 
       piece.spell = null;
       piece.classList.remove("goThruAnimate");
-      round.pieceSpells[`player${piece.player}`][piece.type] = null;
+      if (!replay) {
+        gameHistory[gameHistory.length - 1].pieceSpells[
+          `player${piece.player}`
+        ][piece.type] = null;
+        localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+      }
+
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     } else if (piece.spell === "destroy") {
       writeHistory(`Bullet destroyed ${piece.type}`);
       piece.remove();
-      const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
-      delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
-        piece.type
-      ];
-      delete gameHistory[gameHistory.length - 1].pieceSpells[
-        `player${piece.player}`
-      ][piece.type];
-      localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+      if (!replay) {
+        delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
+          piece.type
+        ];
+        delete gameHistory[gameHistory.length - 1].pieceSpells[
+          `player${piece.player}`
+        ][piece.type];
+        localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+      }
       const semiRicochetBreakAudio = document.querySelector(
         "#semiRicochetBreakAudio"
       );
@@ -49,7 +57,11 @@ export default async function handleCollision(piece, replay) {
       const bullet = document.querySelector(".bullet");
       bullet.remove();
       piece.classList.remove("shieldAnimate");
-      round.pieceSpells[`player${piece.player}`][piece.type] = null;
+      if (!replay) {
+        gameHistory[gameHistory.length - 1].pieceSpells[
+          `player${piece.player}`
+        ][piece.type] = null;
+      }
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     }
   }
@@ -138,14 +150,16 @@ export default async function handleCollision(piece, replay) {
           semiRicochetBreakAudio.pause();
           semiRicochetBreakAudio.currentTime = 0;
           semiRicochetBreakAudio.play();
-          const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
-          delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
-            "SemiRicochet"
-          ];
-          delete gameHistory[gameHistory.length - 1].pieceSpells[
-            `player${piece.player}`
-          ]["SemiRicochet"];
-          localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+          if (!replay) {
+            const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
+            delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
+              "SemiRicochet"
+            ];
+            delete gameHistory[gameHistory.length - 1].pieceSpells[
+              `player${piece.player}`
+            ]["SemiRicochet"];
+            localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+          }
           return { gameOver, absorbed, ricochet, semiRicochetBroken };
       }
 
