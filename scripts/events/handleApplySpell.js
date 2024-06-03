@@ -50,7 +50,7 @@ export default async function handleApplySpell(p, spell) {
   );
   localStorage.setItem("spells", JSON.stringify(spells));
   newRound.spells = spells;
-  newRound.pieceSpells[`player${spell.player}`][p.type] = spell.type;
+  newRound.pieceSpells[`player${p.player}`][p.type] = spell.type;
   console.log(newRound);
   history.push(newRound);
   console.log(history);
@@ -65,7 +65,7 @@ export default async function handleApplySpell(p, spell) {
   clearInterval(Number(prevInterval)); //removing previous timer interval
   pieces.forEach((p) => p.removeEventListener("mouseenter", pieceHover));
 
-  const gameOver = await moveBullet(dir, cannonLocation, p.player);
+  const gameOver = await moveBullet(dir, cannonLocation, spell.player);
   addHandlePieceSelect(spell.player === 1 ? 2 : 1, gameOver); //switching player
   console.log(gameOver);
 }

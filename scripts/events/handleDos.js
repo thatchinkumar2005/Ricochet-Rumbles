@@ -21,18 +21,6 @@ export default function handleDos(do_) {
       const spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (settings.spells) {
-          if (spellPlayer.hasOwnProperty(p)) {
-            let piece = document.querySelector(`.${p}.player${i + 1}`);
-            piece.spell = spellPlayer[p];
-            piece.classList.remove(
-              "goThruAnimate",
-              "destroyAnimate",
-              "shieldAnimate"
-            );
-            piece.classList.add(`${piece.spell}Animate`);
-          }
-        }
         if (player.hasOwnProperty(p)) {
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
@@ -84,10 +72,29 @@ export default function handleDos(do_) {
             const newCell = document.querySelector(
               `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
             );
-            const piece = document.querySelector(`.${p}.player${i + 1}`);
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            if (!piece) {
+              piece = document.createElement("div");
+              piece.type = p;
+              piece.player = i + 1;
+              piece.classList.add("piece", p, `player${i + 1}`);
+              newCell.append(piece);
+            }
             console.log(piece);
             piece.remove();
             newCell.append(piece);
+          }
+        }
+        if (settings.spells) {
+          if (spellPlayer.hasOwnProperty(p)) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = spellPlayer[p];
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            piece.classList.add(`${piece.spell}Animate`);
           }
         }
       });
@@ -114,18 +121,6 @@ export default function handleDos(do_) {
       console.log(player);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (settings.spells) {
-          if (spellPlayer.hasOwnProperty(p)) {
-            let piece = document.querySelector(`.${p}.player${i + 1}`);
-            piece.spell = spellPlayer[p];
-            piece.classList.remove(
-              "goThruAnimate",
-              "destroyAnimate",
-              "shieldAnimate"
-            );
-            piece.classList.add(`${piece.spell}Animate`);
-          }
-        }
         if (player.hasOwnProperty(p)) {
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
@@ -134,11 +129,11 @@ export default function handleDos(do_) {
             );
             let piece = document.querySelector(`.${p}.player${i + 1}`);
             if (!piece) {
-              // piece = document.createElement("div");
-              // piece.type = p;
-              // piece.player = i + 1;
-              // piece.classList.add("piece", p, `player${i + 1}`);
-              // newCell.append(piece);
+              piece = document.createElement("div");
+              piece.type = p;
+              piece.player = i + 1;
+              piece.classList.add("piece", p, `player${i + 1}`);
+              newCell.append(piece);
             }
             piece.orientation = player[p].orientation;
             if (piece.type === "Ricochet") {
@@ -177,10 +172,29 @@ export default function handleDos(do_) {
             const newCell = document.querySelector(
               `[data-row='${player[p][0]}'][data-col='${player[p][1]}']`
             );
-            const piece = document.querySelector(`.${p}.player${i + 1}`);
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            if (!piece) {
+              piece = document.createElement("div");
+              piece.type = p;
+              piece.player = i + 1;
+              piece.classList.add("piece", p, `player${i + 1}`);
+              newCell.append(piece);
+            }
             console.log(piece);
             piece.remove();
             newCell.append(piece);
+          }
+        }
+        if (settings.spells) {
+          if (spellPlayer.hasOwnProperty(p)) {
+            let piece = document.querySelector(`.${p}.player${i + 1}`);
+            piece.spell = spellPlayer[p];
+            piece.classList.remove(
+              "goThruAnimate",
+              "destroyAnimate",
+              "shieldAnimate"
+            );
+            piece.classList.add(`${piece.spell}Animate`);
           }
         }
       });

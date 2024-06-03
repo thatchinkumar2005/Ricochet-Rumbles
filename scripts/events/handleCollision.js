@@ -31,7 +31,7 @@ export default async function handleCollision(piece, replay) {
       delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
         piece.type
       ];
-      delete gameHistory[gameHistory.length - 1].picesSpells[
+      delete gameHistory[gameHistory.length - 1].pieceSpells[
         `player${piece.player}`
       ][piece.type];
       localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
@@ -49,9 +49,7 @@ export default async function handleCollision(piece, replay) {
       const bullet = document.querySelector(".bullet");
       bullet.remove();
       piece.classList.remove("shieldAnimate");
-      round[`player${piece.player}`][piece.type] = null;
-      spellHistory.push(round);
-      localStorage.setItem("spellHistory", JSON.stringify(spellHistory));
+      round.pieceSpells[`player${piece.player}`][piece.type] = null;
       return { gameOver, absorbed, ricochet, semiRicochetBroken };
     }
   }
