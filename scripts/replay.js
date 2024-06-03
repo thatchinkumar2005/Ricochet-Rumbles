@@ -30,8 +30,9 @@ async function replay() {
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(pos[`player${i + 1}`]);
       let spellPlayer;
-      if (settings.spell)
+      if (settings.spells)
         spellPlayer = structuredClone(pos.pieceSpells[`player${i + 1}`]);
+      console.log(spellPlayer);
       console.log(pieces);
       pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
