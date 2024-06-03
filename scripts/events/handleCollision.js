@@ -142,7 +142,7 @@ export default async function handleCollision(piece, replay) {
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else if (type === "Tank") {
     const bullet = document.querySelector(".bullet");
-    if (bullet.dir_ === 3) {
+    if (bullet.dir_ === 3 && settings.tankBullet) {
       return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
     } else {
       absorbed = true;

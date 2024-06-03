@@ -20,7 +20,7 @@ export default function gameInit(initialPlayer, gameOver) {
     });
     localStorage.setItem("doIndex", 0);
 
-    const { history, spells, undo_redo } = JSON.parse(
+    const { history, spells, undo_redo, tankBullet } = JSON.parse(
       localStorage.getItem("settings")
     );
     if (!spells) {
@@ -45,6 +45,10 @@ export default function gameInit(initialPlayer, gameOver) {
       redo.remove();
     }
 
+    if (tankBullet) {
+      const tanks = document.querySelectorAll(".Tank");
+      tanks.forEach((t) => t.classList.add("tankBullet"));
+    }
     addHandlePieceSelect(initialPlayer, gameOver);
   }
 }

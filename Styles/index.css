@@ -392,3 +392,7 @@ body {
 .spellSelect {
   border: black 2px solid;
 }
+
+.tankBullet {
+  border-right: 2px gray solid;
+}
