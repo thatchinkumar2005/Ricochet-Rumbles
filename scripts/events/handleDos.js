@@ -18,12 +18,13 @@ export default function handleDos(do_) {
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
+      const spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (player.hasOwnProperty(p)) {
-          if (settings.spells) {
+        if (settings.spells) {
+          if (spellPlayer.hasOwnProperty(p)) {
             let piece = document.querySelector(`.${p}.player${i + 1}`);
-            piece.spell = round.pieceSpells[`player${i + 1}`][p];
+            piece.spell = spellPlayer[p];
             piece.classList.remove(
               "goThruAnimate",
               "destroyAnimate",
@@ -31,6 +32,8 @@ export default function handleDos(do_) {
             );
             piece.classList.add(`${piece.spell}Animate`);
           }
+        }
+        if (player.hasOwnProperty(p)) {
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(
@@ -107,13 +110,14 @@ export default function handleDos(do_) {
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
+      const spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
       console.log(player);
       console.log(players);
       players[i].pieces.forEach((p) => {
-        if (player.hasOwnProperty(p)) {
-          if (settings.spells) {
+        if (settings.spells) {
+          if (spellPlayer.hasOwnProperty(p)) {
             let piece = document.querySelector(`.${p}.player${i + 1}`);
-            piece.spell = round.pieceSpells[`player${i + 1}`][p];
+            piece.spell = spellPlayer[p];
             piece.classList.remove(
               "goThruAnimate",
               "destroyAnimate",
@@ -121,6 +125,8 @@ export default function handleDos(do_) {
             );
             piece.classList.add(`${piece.spell}Animate`);
           }
+        }
+        if (player.hasOwnProperty(p)) {
           if (p === "Ricochet" || p === "SemiRicochet") {
             console.log(p);
             const newCell = document.querySelector(

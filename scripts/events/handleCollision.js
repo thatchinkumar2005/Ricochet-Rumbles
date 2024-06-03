@@ -31,6 +31,9 @@ export default async function handleCollision(piece, replay) {
       delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
         piece.type
       ];
+      delete gameHistory[gameHistory.length - 1].picesSpells[
+        `player${piece.player}`
+      ][piece.type];
       localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
       const semiRicochetBreakAudio = document.querySelector(
         "#semiRicochetBreakAudio"
@@ -141,6 +144,9 @@ export default async function handleCollision(piece, replay) {
           delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
             "SemiRicochet"
           ];
+          delete gameHistory[gameHistory.length - 1].pieceSpells[
+            `player${piece.player}`
+          ]["SemiRicochet"];
           localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
           return { gameOver, absorbed, ricochet, semiRicochetBroken };
       }
