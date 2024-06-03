@@ -29,7 +29,9 @@ async function replay() {
     if (previousPieces) Array.from(previousPieces).forEach((p) => p.remove());
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(pos[`player${i + 1}`]);
-      const spellPlayer = structuredClone(pos.pieceSpells[`player${i + 1}`]);
+      let spellPlayer;
+      if (settings.spell)
+        spellPlayer = structuredClone(pos.pieceSpells[`player${i + 1}`]);
       console.log(pieces);
       pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {

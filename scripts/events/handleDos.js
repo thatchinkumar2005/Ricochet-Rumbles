@@ -18,7 +18,9 @@ export default function handleDos(do_) {
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
-      const spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
+      let spellPlayer;
+      if (settings.spells)
+        spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
       console.log(players);
       players[i].pieces.forEach((p) => {
         if (player.hasOwnProperty(p)) {
@@ -117,7 +119,9 @@ export default function handleDos(do_) {
 
     for (let i = 0; i < 2; i++) {
       const player = structuredClone(round[`player${i + 1}`]);
-      const spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
+      let spellPlayer;
+      if (settings.spells)
+        spellPlayer = structuredClone(round.pieceSpells[`player${i + 1}`]);
       console.log(player);
       console.log(players);
       players[i].pieces.forEach((p) => {

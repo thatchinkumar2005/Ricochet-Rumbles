@@ -14,9 +14,8 @@ export default async function handleCollision(piece, replay) {
 
   const settings = JSON.parse(localStorage.getItem("settings"));
   const gameHistory = JSON.parse(localStorage.getItem("gameHistory"));
-  const round = structuredClone(gameHistory[gameHistory.length - 1]);
 
-  if (piece.spell) {
+  if (piece.spell && settings.spells) {
     console.log(piece.spell);
     if (piece.spell === "goThru") {
       writeHistory(`Bullet went through ${piece.type}`);
@@ -34,6 +33,8 @@ export default async function handleCollision(piece, replay) {
     } else if (piece.spell === "destroy") {
       writeHistory(`Bullet destroyed ${piece.type}`);
       piece.remove();
+      const bullet = document.querySelector(".bullet");
+      bullet.remove();
       if (!replay) {
         delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
           piece.type
@@ -141,8 +142,6 @@ export default async function handleCollision(piece, replay) {
           ricochet = false;
           semiRicochetBroken = true;
           console.log("Semiricochet broken");
-          if (replay)
-            writeHistory(`player${piece.player} lost their Semi Ricochet`);
           piece.remove();
           const semiRicochetBreakAudio = document.querySelector(
             "#semiRicochetBreakAudio"
@@ -155,9 +154,11 @@ export default async function handleCollision(piece, replay) {
             delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
               "SemiRicochet"
             ];
-            delete gameHistory[gameHistory.length - 1].pieceSpells[
-              `player${piece.player}`
-            ]["SemiRicochet"];
+            if (settings.spells) {
+              delete gameHistory[gameHistory.length - 1].pieceSpells[
+                `player${piece.player}`
+              ]["SemiRicochet"];
+            }
             localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
           }
           return { gameOver, absorbed, ricochet, semiRicochetBroken };
