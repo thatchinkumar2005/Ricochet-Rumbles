@@ -56,7 +56,7 @@ export default async function moveBullet(
   bullet.style.left = `${initialLocation[1] * 77}px`;
   if (initialCell) {
     if (initialCell.firstElementChild?.classList.contains("piece")) {
-      let data = await handleCollision(initialCell.firstChild);
+      let data = await handleCollision(initialCell.firstChild, replay, bullet);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
@@ -86,7 +86,7 @@ export default async function moveBullet(
     bullet.style.top = `${currentLocation[0] * 75}px`;
     bullet.style.left = `${currentLocation[1] * 77}px`;
     if (newCell.firstElementChild?.classList.contains("piece")) {
-      let data = await handleCollision(newCell.firstChild, replay);
+      let data = await handleCollision(newCell.firstChild, replay, bullet);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;

@@ -119,15 +119,15 @@ export default function handlePieceSelect(pieceElement) {
   clickAudio.play();
 
   //bot
-  const isBot = localStorage.getItem("bot");
+  // const isBot = localStorage.getItem("bot");
 
-  if (pieceElement.player === 1 && isBot == 1) {
-    setTimeout(() => {
-      const validDests = document.querySelectorAll(".validDest");
-      const dest =
-        validDests[Math.round(Math.random() * (validDests.length - 1))];
-      console.log(dest);
-      dest.click();
-    }, 500);
-  }
+  // if (pieceElement.player === 1 && isBot == 1) {
+  //   setTimeout(() => {
+  //     const validDests = document.querySelectorAll(".validDest");
+  //     const dest =
+  //       validDests[Math.round(Math.random() * (validDests.length - 1))];
+  //     console.log(dest);
+  //     dest.click();
+  //   }, 500);
+  // }
 }

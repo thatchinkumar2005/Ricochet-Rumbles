@@ -1,7 +1,7 @@
 import moveBullet from "../render/Bullet.js";
 import writeHistory from "../render/writeHistory.js";
 
-export default async function handleCollision(piece, replay, bullet) {
+export default async function handleCollision(piece, replay) {
   let gameOver = false,
     absorbed = false,
     ricochet = false,
@@ -35,6 +35,7 @@ export default async function handleCollision(piece, replay, bullet) {
       cont = false;
       writeHistory(`Bullet destroyed ${piece.type}`);
       piece.remove();
+      const bullet = document.querySelector(".bullet");
       bullet.remove();
       if (!replay) {
         delete gameHistory[gameHistory.length - 1][`player${piece.player}`][
@@ -56,6 +57,7 @@ export default async function handleCollision(piece, replay, bullet) {
     } else if (piece.spell === "shield") {
       absorbed = true;
       piece.spell = null;
+      const bullet = document.querySelector(".bullet");
       bullet.remove();
       piece.classList.remove("shieldAnimate");
       if (!replay) {
@@ -68,6 +70,7 @@ export default async function handleCollision(piece, replay, bullet) {
       cont = false;
       piece.spell = null;
       piece.classList.remove("swapAnimate");
+      const bullet = document.querySelector(".bullet");
       bullet.remove();
       const playerPiece = document.querySelector(
         `.player${piece.player}.${piece.type}`
@@ -129,14 +132,17 @@ export default async function handleCollision(piece, replay, bullet) {
   if (type === "Cannon") {
     absorbed = true;
     console.log("Absorbed");
+    const bullet = document.querySelector(".bullet");
     bullet.remove();
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else if (type === "Titan") {
+    const bullet = document.querySelector(".bullet");
     gameOver = bullet.player !== piece.player;
     console.log(gameOver);
     bullet.remove();
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else if (type === "Tank") {
+    const bullet = document.querySelector(".bullet");
     if (bullet.dir_ === 3 && settings.tankBullet) {
       return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
     } else {
@@ -147,6 +153,7 @@ export default async function handleCollision(piece, replay, bullet) {
   } else {
     if (type === "Ricochet") {
       ricochet = true;
+      const bullet = document.querySelector(".bullet");
       prevDir = bullet.dir_;
       bullet.remove();
       const cell = piece.parentElement;
@@ -176,6 +183,7 @@ export default async function handleCollision(piece, replay, bullet) {
       gameOver = await moveBullet(dir, srcLocation, bullet.player); //recursive call
     } else if (type === "SemiRicochet") {
       ricochet = true;
+      const bullet = document.querySelector(".bullet");
       prevDir = bullet.dir_;
       bullet.remove();
       const cell = piece.parentElement;

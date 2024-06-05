@@ -1,4 +1,5 @@
 import { pieces as Pieces } from "../Globals/players.js";
+import bot from "../bot/bot.js";
 import placeSpells from "../render/placeSpells.js";
 import writeHistory from "../render/writeHistory.js";
 import handleDos from "./handleDos.js";
@@ -178,17 +179,18 @@ export default function addHandlePieceSelect(
   //bot
   if (player === 1 && isBot == 1) {
     console.log("hello");
-    let randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];
-    console.log(randomPiece);
-    let piece = document.querySelector(`.player1.${randomPiece}`);
-    if (!piece) {
-      let randomPiece;
-      randomPiece = Pieces.splice(Pieces.indexOf(randomPiece), 1)[
-        Math.round(Math.random() * (Pieces.length - 1))
-      ];
-      let piece = document.querySelector(`.player1.${randomPiece}`);
-    }
-    piece.click();
+    // let randomPiece = Pieces[Math.round(Math.random() * (Pieces.length - 1))];
+    // console.log(randomPiece);
+    // let piece = document.querySelector(`.player1.${randomPiece}`);
+    // if (!piece) {
+    //   let randomPiece;
+    //   randomPiece = Pieces.splice(Pieces.indexOf(randomPiece), 1)[
+    //     Math.round(Math.random() * (Pieces.length - 1))
+    //   ];
+    //   let piece = document.querySelector(`.player1.${randomPiece}`);
+    // }
+    // piece.click();
+    bot();
     pieces.forEach((p) => (p.onclick = null));
   }
 }
