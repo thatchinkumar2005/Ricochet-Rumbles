@@ -12,13 +12,12 @@ export default async function moveBullet(
   let gameOver = false;
   let semiRicochetBroken = false;
   let cont = true;
-  let { bulletSpeed } = JSON.parse(localStorage.getItem("settings"));
-  bulletSpeed = Number(bulletSpeed);
 
   const sleep = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time));
   };
   const bullet = document.createElement("div");
+  const board = document.querySelector("#board");
   bullet.player = player;
   bullet.classList.add("bullet");
   bullet.dir_ = dir;
@@ -58,7 +57,10 @@ export default async function moveBullet(
   );
   console.log(initialCell);
   if (initialCell) {
-    initialCell.appendChild(bullet);
+    board.append(bullet);
+    bullet.style.top = `${initialLocation[0] * 75}px`;
+    bullet.style.left = `${initialLocation[1] * 77}px`;
+    await sleep(100);
     if (initialCell.firstElementChild?.classList.contains("piece")) {
       let data = await handleCollision(initialCell.firstChild);
       gameOver = data.gameOver;
@@ -69,7 +71,7 @@ export default async function moveBullet(
 
   let currentLocation = initialLocation;
   if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-    await sleep(bulletSpeed);
+    await sleep(100);
     const bullet = document.querySelector(".bullet");
     if (bullet) bullet.remove();
   }
@@ -89,7 +91,7 @@ export default async function moveBullet(
       `[data-row='${currentLocation[0]}'][data-col='${currentLocation[1]}']`
     );
     bullet.style.top = `${currentLocation[0] * 75}px`;
-    bullet.style.left = `${currentLocation[1] * 75}px`;
+    bullet.style.left = `${currentLocation[1] * 77}px`;
     if (newCell.firstElementChild?.classList.contains("piece")) {
       let data = await handleCollision(newCell.firstChild, replay);
       gameOver = data.gameOver;
@@ -100,12 +102,12 @@ export default async function moveBullet(
       console.log(data);
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
-      await sleep(bulletSpeed);
+      await sleep(100);
       console.log(true);
       const bullet = document.querySelector(".bullet");
       if (bullet) bullet.remove();
     }
-    await sleep(bulletSpeed);
+    await sleep(100);
   }
   return gameOver;
 }
