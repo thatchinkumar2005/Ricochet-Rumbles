@@ -139,7 +139,6 @@ export default async function handleCollision(piece, replay) {
     const bullet = document.querySelector(".bullet");
     gameOver = bullet.player !== piece.player;
     console.log(gameOver);
-    bullet.remove();
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   } else if (type === "Tank") {
     const bullet = document.querySelector(".bullet");
