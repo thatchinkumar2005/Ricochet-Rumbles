@@ -12,7 +12,12 @@ export default async function moveBullet(
   let gameOver = false;
   let semiRicochetBroken = false;
   let cont = true;
+  let { bulletSpeed } = JSON.parse(localStorage.getItem("settings"));
+  bulletSpeed = Number(bulletSpeed);
 
+  const sleep = (time) => {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  };
   const bullet = document.createElement("div");
   bullet.player = player;
   bullet.classList.add("bullet");
@@ -38,6 +43,7 @@ export default async function moveBullet(
 
   const initialLocation = [];
   if (pathAction === "add") {
+    console.log("happened");
     initialLocation[path] = srcLocation[path] + 1;
     initialLocation[path === 0 ? 1 : 0] = srcLocation[path === 0 ? 1 : 0];
   }
@@ -47,46 +53,45 @@ export default async function moveBullet(
   }
   console.log(initialLocation);
 
-  const board = document.querySelector("#board");
-  board.appendChild(bullet);
   const initialCell = document.querySelector(
     `[data-row='${initialLocation[0]}'][data-col='${initialLocation[1]}']`
   );
-  bullet.style.top = `${initialLocation[0] * 75}px`;
-  bullet.style.left = `${initialLocation[1] * 77}px`;
+  console.log(initialCell);
   if (initialCell) {
+    initialCell.appendChild(bullet);
     if (initialCell.firstElementChild?.classList.contains("piece")) {
-      let data = await handleCollision(initialCell.firstChild, replay, bullet);
+      let data = await handleCollision(initialCell.firstChild);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
-      semiRicochetBroken = data.semiRicochetBroken;
-      cont = data.cont;
     }
   }
 
   let currentLocation = initialLocation;
   if (currentLocation[path] == 7 || currentLocation[path] == 0) {
+    await sleep(bulletSpeed);
     const bullet = document.querySelector(".bullet");
     if (bullet) bullet.remove();
   }
 
-  async function move() {
+  while (!gameOver && !absorbed && !ricochet && !semiRicochetBroken && cont) {
+    //loop to move the bullet
+    // player === 1 ? currentLocation[0]++ : currentLocation[0]--;
     if (pathAction === "add") {
       currentLocation[path]++;
     } else if (pathAction === "sub") {
       currentLocation[path]--;
     }
     if (currentLocation[path] > 7 || currentLocation[path] < 0) {
-      return { gameOver, absorbed, ricochet, semiRicochetBroken, cont: false };
+      break;
     }
     const newCell = document.querySelector(
       `[data-row='${currentLocation[0]}'][data-col='${currentLocation[1]}']`
     );
     bullet.style.top = `${currentLocation[0] * 75}px`;
-    bullet.style.left = `${currentLocation[1] * 77}px`;
+    bullet.style.left = `${currentLocation[1] * 75}px`;
     if (newCell.firstElementChild?.classList.contains("piece")) {
-      let data = await handleCollision(newCell.firstChild, replay, bullet);
+      let data = await handleCollision(newCell.firstChild, replay);
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
@@ -95,29 +100,12 @@ export default async function moveBullet(
       console.log(data);
     }
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
+      await sleep(bulletSpeed);
       console.log(true);
       const bullet = document.querySelector(".bullet");
-      setTimeout(() => {
-        if (bullet) bullet.remove();
-      }, 100);
+      if (bullet) bullet.remove();
     }
-    return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
+    await sleep(bulletSpeed);
   }
-
-  return new Promise((resolve) => {
-    const interval = setInterval(async () => {
-      if (
-        !(!gameOver && !absorbed && !ricochet && !semiRicochetBroken && cont)
-      ) {
-        clearInterval(interval);
-        resolve(gameOver);
-      }
-      let data = await move();
-      gameOver = data.gameOver;
-      absorbed = data.absorbed;
-      ricochet = data.ricochet;
-      semiRicochetBroken = data.semiRicochetBroken;
-      cont = data.cont;
-    }, 100);
-  });
+  return gameOver;
 }
