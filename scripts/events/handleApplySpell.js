@@ -5,6 +5,7 @@ import handlePause from "./handlePause.js";
 import pieceHover from "./pieceHover.js";
 
 export default async function handleApplySpell(p, spell) {
+  console.log("clicked");
   const magicAudio = document.querySelector("#magicAudio");
 
   const history = JSON.parse(localStorage.getItem("gameHistory"));

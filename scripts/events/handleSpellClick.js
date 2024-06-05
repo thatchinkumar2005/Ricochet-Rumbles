@@ -71,7 +71,7 @@ export default async function handleSpellClick(e) {
       break;
     case "swap":
       pieces = document.querySelectorAll(".piece");
-      console.log("shield");
+      console.log("swap");
       pieces.forEach((p) => {
         if (p.type === "Cannon") return;
         const otherPiece = document.querySelector(

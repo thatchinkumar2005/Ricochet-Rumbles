@@ -213,7 +213,7 @@ body {
   position: absolute;
   width: 75px;
   height: 75px;
-  transition: all 100ms linear;
+  transition: top 100ms linear, left 100ms linear;
 }
 
 .bullet_top {
