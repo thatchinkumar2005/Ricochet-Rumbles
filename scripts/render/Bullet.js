@@ -66,6 +66,8 @@ export default async function moveBullet(
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
+      semiRicochetBroken = data.semiRicochetBroken;
+      cont = data.cont;
     }
   }
 
