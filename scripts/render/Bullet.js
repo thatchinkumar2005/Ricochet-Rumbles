@@ -1,3 +1,4 @@
+import { SemiRicochet } from "../Globals/RicochetOrientation.js";
 import { settings } from "../Globals/settings.js";
 import handleCollision from "../events/handleCollision.js";
 
@@ -69,6 +70,7 @@ export default async function moveBullet(
       gameOver = data.gameOver;
       absorbed = data.absorbed;
       ricochet = data.ricochet;
+      semiRicochetBroken = data.semiRicochetBroken;
     }
   }
 
