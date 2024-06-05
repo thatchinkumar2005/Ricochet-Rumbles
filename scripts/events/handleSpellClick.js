@@ -74,6 +74,11 @@ export default async function handleSpellClick(e) {
       console.log("shield");
       pieces.forEach((p) => {
         if (p.type === "Cannon") return;
+        const otherPiece = document.querySelector(
+          `.player${p.player === 1 ? 2 : 1}.${p.type}`
+        );
+        console.log(otherPiece);
+        if (!otherPiece) return;
         p.parentElement.classList.add("validDest");
         p.onclick = (e) => {
           handleApplySpell(p, spell);

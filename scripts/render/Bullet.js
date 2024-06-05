@@ -97,7 +97,9 @@ export default async function moveBullet(
     if (currentLocation[path] == 7 || currentLocation[path] == 0) {
       console.log(true);
       const bullet = document.querySelector(".bullet");
-      if (bullet) bullet.remove();
+      setTimeout(() => {
+        if (bullet) bullet.remove();
+      }, 100);
     }
     return { gameOver, absorbed, ricochet, semiRicochetBroken, cont };
   }

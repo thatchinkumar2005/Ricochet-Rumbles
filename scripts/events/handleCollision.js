@@ -78,6 +78,7 @@ export default async function handleCollision(piece, replay) {
       const otherPiece = document.querySelector(
         `.player${piece.player === 1 ? 2 : 1}.${piece.type}`
       );
+      writeHistory(`${piece.type}s have been swapped`);
       const playerCell = playerPiece.parentElement;
       const otherCell = otherPiece.parentElement;
       playerPiece.remove();
