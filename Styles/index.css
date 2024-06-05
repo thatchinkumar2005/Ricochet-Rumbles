@@ -27,12 +27,12 @@ body {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  column-gap: 10px;
-  row-gap: 10px;
+  gap: 10px;
   grid-auto-rows: auto;
   grid-auto-columns: auto;
   padding: 10px;
   flex-shrink: 0;
+  position: relative;
   @media only screen and (max-width: 730px) {
     height: calc(8 * 40px);
     width: calc(8 * 40px);
@@ -209,6 +209,11 @@ body {
   background-size: cover;
   width: 100%;
   height: 100%;
+
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  transition: all 100ms linear;
 }
 
 .bullet_top {
